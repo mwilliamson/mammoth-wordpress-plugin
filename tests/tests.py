@@ -21,6 +21,19 @@ def can_convert_simple_docx_to_html():
         assert_equal(add_post_page.read_docx_preview(), "<p>Walking on imported air</p>")
 
 
+@istest
+def clicking_insert_button_inserts_raw_html_into_text_editor():
+    with WordPressBrowser.start() as browser:
+        browser.login()
+        add_post_page = browser.add_new_post()
+        add_post_page.editor.select_text_tab()
+        
+        add_post_page.upload_docx(_test_data_path("single-paragraph.docx"))
+        add_post_page.insert_docx_html()
+        
+        assert_equal(add_post_page.editor.text(), "<p>Walking on imported air</p>")
+
+
 class WordPressBrowser(object):
     @staticmethod
     def start():
@@ -57,6 +70,10 @@ class AddNewPostPage(object):
     def __init__(self, driver):
         self._driver = driver
 
+    @property
+    def editor(self):
+        return ContentEditor(self._driver)
+
     def upload_docx(self, path):
         absolute_path = os.path.abspath(path)
         upload_element = self._driver.find_element_by_id("mammoth-docx-upload")
@@ -67,6 +84,20 @@ class AddNewPostPage(object):
 
     def read_docx_preview(self):
         return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
+        
+    def insert_docx_html(self):
+        self._driver.find_element_by_id("mammoth-docx-insert").click()
+
+
+class ContentEditor(object):
+    def __init__(self, driver):
+        self._driver = driver
+        
+    def select_text_tab(self):
+        self._driver.find_element_by_id("content-html").click()
+        
+    def text(self):
+        return self._driver.find_element_by_id("content").text
 
 
 def _test_data_path(path):

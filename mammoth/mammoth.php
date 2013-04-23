@@ -25,12 +25,18 @@ function mammoth_add_post_meta_box() {
 
 
 function mammoth_render_editor_box( $post ) {
+    echo '<div>';
     echo '<label>Select docx file:';
     echo '<input type="file" id="mammoth-docx-upload" />';
     echo '</label>';
+    echo '</div>';
+    
     echo '<div id="mammoth-docx-loading" style="display: none;">';
     echo 'Loading...';
     echo '</div>';
+    
+    echo '<p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>';
+    
     echo '<h4>Raw HTML</h4>';
     echo '<pre id="mammoth-docx-raw-preview">';
     echo '</pre>';
