@@ -1,2 +1,4 @@
 /_whack
 /_wordpress
+/tests/_virtualenv
+*.pyc

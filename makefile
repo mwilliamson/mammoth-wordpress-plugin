@@ -1,4 +1,4 @@
-.PHONY: setup _wordpress/wordpress/wp-content/plugins/mammoth
+.PHONY: test setup _wordpress/wordpress/wp-content/plugins/mammoth
 
 setup: _wordpress/wordpress/wp-content/plugins/mammoth
 
@@ -19,3 +19,10 @@ _wordpress: _whack/bin/whack
 _wordpress/wordpress/wp-content/plugins/mammoth: _wordpress
 	ln -sfT `pwd`/mammoth $@
 	_wordpress/bin/wp plugin activate mammoth
+
+tests/_virtualenv/bin/python:
+	virtualenv tests/_virtualenv
+	
+test: setup tests/_virtualenv/bin/python
+	tests/_virtualenv/bin/pip install -r tests/requirements.txt
+	tests/_virtualenv/bin/nosetests tests
