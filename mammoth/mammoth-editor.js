@@ -17,7 +17,11 @@
     );
     
     document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
-        document.getElementById("content").innerHTML = rawHtml;
+        if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
+            document.getElementById("content").value = rawHtml;
+        } else {
+            tinyMCE.execCommand('mceInsertRawHTML', false, rawHtml);
+        }
     }, false);
 
     function escapeHtml(value) {

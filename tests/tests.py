@@ -31,7 +31,21 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         add_post_page.docx_converter.insert_html()
         
-        assert_equal(add_post_page.editor.text(), "<p>Walking on imported air</p>")
+        assert_equal(add_post_page.editor.text(), "&lt;p&gt;Walking on imported air&lt;/p&gt;")
+
+
+@istest
+def clicking_insert_button_inserts_raw_html_into_visual_editor():
+    with WordPressBrowser.start() as browser:
+        browser.login()
+        add_post_page = browser.add_new_post()
+        add_post_page.editor.select_visual_tab()
+        
+        add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
+        add_post_page.docx_converter.insert_html()
+        
+        add_post_page.editor.select_text_tab()
+        assert_equal(add_post_page.editor.text(), "&lt;p&gt;Walking on imported air&lt;/p&gt;")
 
 
 class WordPressBrowser(object):
@@ -85,11 +99,10 @@ class DocxConverter(object):
         
     def upload(self, path):
         absolute_path = os.path.abspath(path)
-        upload_element = self._driver.find_element_by_id("mammoth-docx-upload")
+        upload_element = _wait_for_element_visible(self._driver, id="mammoth-docx-upload")
         upload_element.send_keys(absolute_path)
         
-        loading_not_visible = expected_conditions.invisibility_of_element_located((By.ID, "mammoth-docx-loading"))
-        WebDriverWait(self._driver, 10).until(loading_not_visible)
+        _wait_for_element_not_visible(self._driver, id="mammoth-docx-loading")
 
     def read_raw_preview(self):
         return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
@@ -103,13 +116,30 @@ class ContentEditor(object):
         self._driver = driver
         
     def select_text_tab(self):
-        self._driver.find_element_by_id("content-html").click()
+        # HACK: switch tab in JavaScript since using Selenium opens up the
+        # profile page with the pop-up menu in the top-right for some reason
+        self._driver.execute_script("document.getElementById('content-html').onclick()");
+        _wait_for_element_visible(self._driver, id="content")
+        
+    def select_visual_tab(self):
+        self._driver.find_element_by_id("content-tmce").click()
+        _wait_for_element_visible(self._driver, id="wp-content-editor-container")
         
     def text(self):
-        return self._driver.find_element_by_id("content").text
+        return self._driver.find_element_by_id("content").get_attribute("value")
 
 
 def _test_data_path(path):
     full_path = os.path.join(os.path.dirname(__file__), "test-data", path)
     assert os.path.exists(full_path)
     return full_path
+
+
+def _wait_for_element_visible(driver, id):
+    visible = expected_conditions.presence_of_element_located((By.ID, id))
+    return WebDriverWait(driver, 10).until(visible)
+
+
+def _wait_for_element_not_visible(driver, id):
+    not_visible = expected_conditions.invisibility_of_element_located((By.ID, id))
+    return WebDriverWait(driver, 10).until(not_visible)
