@@ -31,7 +31,7 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         add_post_page.docx_converter.insert_html()
         
-        assert_equal(add_post_page.editor.text(), "&lt;p&gt;Walking on imported air&lt;/p&gt;")
+        assert_equal(add_post_page.editor.text(), "<p>Walking on imported air</p>")
 
 
 @istest
@@ -45,7 +45,8 @@ def clicking_insert_button_inserts_raw_html_into_visual_editor():
         add_post_page.docx_converter.insert_html()
         
         add_post_page.editor.select_text_tab()
-        assert_equal(add_post_page.editor.text(), "&lt;p&gt;Walking on imported air&lt;/p&gt;")
+        # WordPress editor strips <p> tags
+        assert_equal(add_post_page.editor.text(), "Walking on imported air")
 
 
 class WordPressBrowser(object):

@@ -1,5 +1,5 @@
 (function() {
-    var rawHtml = "";
+    var latestResult = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
     var loadingElement = document.getElementById("mammoth-docx-loading");
     
@@ -10,19 +10,31 @@
     mammoth.fileInput(
         uploadElement,
         function(result) {
+            latestResult = result;
             loadingElement.style.display = "none";
-            rawHtml = escapeHtml(result.value);
-            document.getElementById("mammoth-docx-raw-preview").innerHTML = rawHtml;
+            document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
         }
     );
     
     document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
         if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
-            document.getElementById("content").value = rawHtml;
+            insertText(document.getElementById("content"), latestResult.value);
         } else {
-            tinyMCE.execCommand('mceInsertRawHTML', false, rawHtml);
+            tinyMCE.execCommand('mceInsertRawHTML', false, latestResult.value);
         }
     }, false);
+
+    function insertText(element, text) {
+        var startPosition = element.selectionStart;
+        element.value = 
+            element.value.substring(0, startPosition) +
+            text +
+            element.value.substring(element.selectionEnd);
+        
+        var newStartPosition = startPosition + text.length;
+        element.selectionStart = newStartPosition;
+        element.selectionEnd = newStartPosition;
+    }
 
     function escapeHtml(value) {
         return value
