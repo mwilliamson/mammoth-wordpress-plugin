@@ -17,8 +17,8 @@ def can_convert_simple_docx_to_html():
     with WordPressBrowser.start() as browser:
         browser.login()
         add_post_page = browser.add_new_post()
-        add_post_page.upload_docx(_test_data_path("single-paragraph.docx"))
-        assert_equal(add_post_page.read_docx_preview(), "<p>Walking on imported air</p>")
+        add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
+        assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>Walking on imported air</p>")
 
 
 @istest
@@ -28,8 +28,8 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
         add_post_page = browser.add_new_post()
         add_post_page.editor.select_text_tab()
         
-        add_post_page.upload_docx(_test_data_path("single-paragraph.docx"))
-        add_post_page.insert_docx_html()
+        add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
+        add_post_page.docx_converter.insert_html()
         
         assert_equal(add_post_page.editor.text(), "<p>Walking on imported air</p>")
 
@@ -74,7 +74,16 @@ class AddNewPostPage(object):
     def editor(self):
         return ContentEditor(self._driver)
 
-    def upload_docx(self, path):
+    @property
+    def docx_converter(self):
+        return DocxConverter(self._driver)
+
+
+class DocxConverter(object):
+    def __init__(self, driver):
+        self._driver = driver
+        
+    def upload(self, path):
         absolute_path = os.path.abspath(path)
         upload_element = self._driver.find_element_by_id("mammoth-docx-upload")
         upload_element.send_keys(absolute_path)
@@ -82,10 +91,10 @@ class AddNewPostPage(object):
         loading_not_visible = expected_conditions.invisibility_of_element_located((By.ID, "mammoth-docx-loading"))
         WebDriverWait(self._driver, 10).until(loading_not_visible)
 
-    def read_docx_preview(self):
+    def read_raw_preview(self):
         return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
         
-    def insert_docx_html(self):
+    def insert_html(self):
         self._driver.find_element_by_id("mammoth-docx-insert").click()
 
 
