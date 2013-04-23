@@ -1,8 +1,15 @@
 (function() {
+    var uploadElement = document.getElementById("mammoth-docx-upload");
+    var loadingElement = document.getElementById("mammoth-docx-loading");
+    
+    uploadElement.addEventListener('change', function() {
+        loadingElement.style.display = "block";
+    }, false);
+    
     mammoth.fileInput(
-        document.getElementById("mammoth-docx-upload"),
+        uploadElement,
         function(result) {
-            document.getElementById("mammoth-docx-loading").style.display = "none";
+            loadingElement.style.display = "none";
             document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
         }
     );

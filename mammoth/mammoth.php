@@ -28,7 +28,7 @@ function mammoth_render_editor_box( $post ) {
     echo '<label>Select docx file:';
     echo '<input type="file" id="mammoth-docx-upload" />';
     echo '</label>';
-    echo '<div id="mammoth-docx-loading">';
+    echo '<div id="mammoth-docx-loading" style="display: none;">';
     echo 'Loading...';
     echo '</div>';
     echo '<h4>Raw HTML</h4>';
