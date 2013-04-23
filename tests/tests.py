@@ -1,7 +1,10 @@
 import os
 
-from nose.tools import istest
+from nose.tools import istest, assert_equal
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 
 import logging
@@ -15,6 +18,7 @@ def can_convert_simple_docx_to_html():
         browser.login()
         add_post_page = browser.add_new_post()
         add_post_page.upload_docx(_test_data_path("single-paragraph.docx"))
+        assert_equal(add_post_page.read_docx_preview(), "<p>Walking on imported air</p>")
 
 
 class WordPressBrowser(object):
@@ -57,6 +61,12 @@ class AddNewPostPage(object):
         absolute_path = os.path.abspath(path)
         upload_element = self._driver.find_element_by_id("mammoth-docx-upload")
         upload_element.send_keys(absolute_path)
+        
+        loading_not_visible = expected_conditions.invisibility_of_element_located((By.ID, "mammoth-docx-loading"))
+        WebDriverWait(self._driver, 10).until(loading_not_visible)
+
+    def read_docx_preview(self):
+        return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
 
 
 def _test_data_path(path):

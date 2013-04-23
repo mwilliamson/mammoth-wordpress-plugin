@@ -2,3 +2,4 @@
 /_wordpress
 /tests/_virtualenv
 *.pyc
+/mammoth/mammoth.js
