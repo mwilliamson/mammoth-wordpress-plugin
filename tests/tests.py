@@ -1,4 +1,5 @@
 import os
+import contextlib
 
 from nose.tools import istest, assert_equal
 from selenium import webdriver
@@ -14,18 +15,14 @@ selenium_logger.setLevel(logging.WARNING)
 
 @istest
 def can_convert_simple_docx_to_html():
-    with WordPressBrowser.start() as browser:
-        browser.login()
-        add_post_page = browser.add_new_post()
+    with _add_new_post() as add_post_page:
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>Walking on imported air</p>")
 
 
 @istest
 def clicking_insert_button_inserts_raw_html_into_text_editor():
-    with WordPressBrowser.start() as browser:
-        browser.login()
-        add_post_page = browser.add_new_post()
+    with _add_new_post() as add_post_page:
         add_post_page.editor.select_text_tab()
         
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
@@ -36,9 +33,7 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
 
 @istest
 def clicking_insert_button_inserts_raw_html_into_visual_editor():
-    with WordPressBrowser.start() as browser:
-        browser.login()
-        add_post_page = browser.add_new_post()
+    with _add_new_post() as add_post_page:
         add_post_page.editor.select_visual_tab()
         
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
@@ -47,6 +42,17 @@ def clicking_insert_button_inserts_raw_html_into_visual_editor():
         add_post_page.editor.select_text_tab()
         # WordPress editor strips <p> tags
         assert_equal(add_post_page.editor.text(), "Walking on imported air")
+
+
+@contextlib.contextmanager
+def _add_new_post():
+    with WordPressBrowser.start() as browser:
+        browser.login()
+        add_post_page = browser.add_new_post()
+        try:
+            yield add_post_page
+        finally:
+            add_post_page.trash()
 
 
 class WordPressBrowser(object):
@@ -92,6 +98,11 @@ class AddNewPostPage(object):
     @property
     def docx_converter(self):
         return DocxConverter(self._driver)
+        
+    def trash(self):
+        # Scroll to top since Selenium might accidentally click on static position toolbar instead
+        self._driver.execute_script("window.scrollTo(0, 0);");
+        self._driver.find_element_by_css_selector("#delete-action a").click()
 
 
 class DocxConverter(object):
