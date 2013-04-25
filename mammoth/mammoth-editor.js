@@ -1,17 +1,17 @@
 (function() {
     var latestResult = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
-    var loadingElement = document.getElementById("mammoth-docx-loading");
+    var parentElement = document.getElementById("mammoth-docx-uploader");
     
     uploadElement.addEventListener('change', function() {
-        loadingElement.style.display = "block";
+        parentElement.attr("class", "status-loading");
     }, false);
     
     mammoth.fileInput(
         uploadElement,
         function(result) {
             latestResult = result;
-            loadingElement.style.display = "none";
+            parentElement.className = "status-loaded";
             document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
         }
     );

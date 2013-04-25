@@ -9,6 +9,7 @@ License: BSD 2-clause
 
 add_action( 'add_meta_boxes', 'mammoth_add_post_meta_box' );
 add_action( 'admin_footer', 'mammoth_load_javascript' );
+add_action( 'admin_enqueue_scripts', 'mammoth_admin_style' );
 
 
 function mammoth_add_post_meta_box() {
@@ -23,23 +24,34 @@ function mammoth_add_post_meta_box() {
     }
 }
 
+function mammoth_admin_style() {
+    wp_enqueue_style( 'mammoth-style', plugins_url( 'mammoth/mammoth.css' ) );
+}
+
 
 function mammoth_render_editor_box( $post ) {
+    echo '<div id="mammoth-docx-uploader" class="status-empty">';
+    
     echo '<div>';
     echo '<label>Select docx file:';
     echo '<input type="file" id="mammoth-docx-upload" />';
     echo '</label>';
     echo '</div>';
     
-    echo '<div id="mammoth-docx-loading" style="display: none;">';
+    echo '<div id="mammoth-docx-loading">';
     echo 'Loading...';
     echo '</div>';
+    
+    echo '<div class="mammoth-docx-preview">';
     
     echo '<p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>';
     
     echo '<h4>Raw HTML</h4>';
     echo '<pre id="mammoth-docx-raw-preview">';
     echo '</pre>';
+    echo '</div>';
+    
+    echo '</div>';
 }
 
 

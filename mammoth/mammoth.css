@@ -1,0 +1,15 @@
+#mammoth-docx-loading {
+    display: none;
+}
+
+.status-loading #mammoth-docx-loading {
+    display: block;
+}
+
+.mammoth-docx-preview {
+    display: none;
+}
+
+.status-loaded .mammoth-docx-preview {
+    display: block;
+}
