@@ -17,7 +17,7 @@ function mammoth_add_post_meta_box() {
     foreach ($screens as $screen) {
         add_meta_box(
             'mammoth_add_post',
-            __( 'Mammoth' ),
+            __( 'Mammoth .docx converter' ),
             'mammoth_render_editor_box',
             $screen
         );
