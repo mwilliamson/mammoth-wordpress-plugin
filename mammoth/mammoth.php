@@ -30,28 +30,31 @@ function mammoth_admin_style() {
 
 
 function mammoth_render_editor_box( $post ) {
-    echo '<div id="mammoth-docx-uploader" class="status-empty">';
+    ?>
+    <div id="mammoth-docx-uploader" class="status-empty">
+        <div>
+            <label>
+                Select docx file:
+                <input type="file" id="mammoth-docx-upload" />
+            </label>
+        </div>
     
-    echo '<div>';
-    echo '<label>Select docx file:';
-    echo '<input type="file" id="mammoth-docx-upload" />';
-    echo '</label>';
-    echo '</div>';
+        <div id="mammoth-docx-loading">
+            Loading...
+        </div>
     
-    echo '<div id="mammoth-docx-loading">';
-    echo 'Loading...';
-    echo '</div>';
+        <div class="mammoth-docx-preview">
     
-    echo '<div class="mammoth-docx-preview">';
+            <p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>
     
-    echo '<p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>';
+            <h4>Raw HTML</h4>
+            <pre id="mammoth-docx-raw-preview">
+            </pre>
+            
+        </div>
     
-    echo '<h4>Raw HTML</h4>';
-    echo '<pre id="mammoth-docx-raw-preview">';
-    echo '</pre>';
-    echo '</div>';
-    
-    echo '</div>';
+    </div>
+<?php
 }
 
 
