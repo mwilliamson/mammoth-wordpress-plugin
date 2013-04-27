@@ -11,26 +11,49 @@
         uploadElement,
         function(result) {
             latestResult = result;
-            parentElement.className = "status-loaded";
-            
-            document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
-            
-            var visualPreviewDocument = document.getElementById("mammoth-docx-visual-preview").contentDocument;
-            visualPreviewDocument.body.innerHTML = result.value;
-            
-            if (result.messages.length) {
-                var messageElements = result.messages.map(function(message) {
-                    return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
-                }).join("");
-                
-                document.getElementById("mammoth-docx-messages").innerHTML =
-                    "<ul>" + messageElements + "</ul>";
+            if (result.error) {
+                showError(result.error);
             } else {
-                document.getElementById("mammoth-docx-messages").innerHTML =
-                    "<p>No messages.</p>";
+                showResult(result);
             }
         }
     );
+    
+    function showError(error) {
+        if (error.message) {
+            error = error.message;
+        }
+        parentElement.className = "status-error";
+        document.getElementById("mammoth-docx-error-message").innerHTML = escapeHtml(error);
+    }
+    
+    function showResult(result) {
+        parentElement.className = "status-loaded";
+        
+        showPreview(result.value);
+        showMessages(result.messages);
+    }
+    
+    function showPreview(value) {
+        document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(value);
+        
+        var visualPreviewDocument = document.getElementById("mammoth-docx-visual-preview").contentDocument;
+        visualPreviewDocument.body.innerHTML = value;
+    }
+    
+    function showMessages(messages) {
+        if (messages.length) {
+            var messageElements = messages.map(function(message) {
+                return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
+            }).join("");
+            
+            document.getElementById("mammoth-docx-messages").innerHTML =
+                "<ul>" + messageElements + "</ul>";
+        } else {
+            document.getElementById("mammoth-docx-messages").innerHTML =
+                "<p>No messages.</p>";
+        }
+    }
     
     document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
         if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {

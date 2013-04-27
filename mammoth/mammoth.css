@@ -14,6 +14,14 @@
     display: block;
 }
 
+.mammoth-docx-error {
+    display: none;
+}
+
+.status-error .mammoth-docx-error {
+    display: block;
+}
+
 #mammoth-docx-visual-preview {
     width: 90%;
     height: 350px;

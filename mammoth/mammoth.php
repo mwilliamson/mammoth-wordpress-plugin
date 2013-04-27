@@ -43,6 +43,11 @@ function mammoth_render_editor_box( $post ) {
             Loading...
         </div>
     
+        <p class="mammoth-docx-error">
+            Error while attempting to convert file:
+            <span id="mammoth-docx-error-message"></span>
+        </p>
+    
         <div class="mammoth-docx-preview">
             <p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>
             <div class="mammoth-tabs">
