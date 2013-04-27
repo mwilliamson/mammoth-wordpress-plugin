@@ -12,9 +12,23 @@
         function(result) {
             latestResult = result;
             parentElement.className = "status-loaded";
+            
             document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
+            
             var visualPreviewDocument = document.getElementById("mammoth-docx-visual-preview").contentDocument;
             visualPreviewDocument.body.innerHTML = result.value;
+            
+            if (result.messages.length) {
+                var messageElements = result.messages.map(function(message) {
+                    return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
+                }).join("");
+                
+                document.getElementById("mammoth-docx-messages").innerHTML =
+                    "<ul>" + messageElements + "</ul>";
+            } else {
+                document.getElementById("mammoth-docx-messages").innerHTML =
+                    "<p>No messages.</p>";
+            }
         }
     );
     
@@ -44,5 +58,9 @@
             .replace(/"/g, '&quot;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
+    }
+    
+    function capitalise(string) {
+        return string.charAt(0).toUpperCase() + string.substring(1);
     }
 })();

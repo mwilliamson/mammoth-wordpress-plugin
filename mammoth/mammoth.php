@@ -56,6 +56,11 @@ function mammoth_render_editor_box( $post ) {
                     <pre id="mammoth-docx-raw-preview">
                     </pre>
                 </div>
+                <div class="tab">
+                    <h4>Messages</h4>
+                    <div id="mammoth-docx-messages">
+                    </div>
+                </div>
             </div>
         </div>
     
