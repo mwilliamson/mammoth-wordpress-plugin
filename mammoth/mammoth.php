@@ -82,5 +82,5 @@ function mammoth_load_javascript() {
 
 function mammoth_load_script( $name ) {
     $url = plugins_url( 'mammoth/' . $name . '.js' );
-    echo '"<script src="'. $url . '"></script>"';
+    echo '<script src="'. $url . '"></script>';
 }
