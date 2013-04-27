@@ -48,8 +48,8 @@ function mammoth_render_editor_box( $post ) {
             <div class="mammoth-tabs">
                 <div class="tab">
                     <h4>Visual</h4>
-                    <div id="mammoth-docx-visual-preview">
-                    </div>
+                    <iframe id="mammoth-docx-visual-preview" src="<?php echo plugins_url( 'mammoth/visual-preview.html' ); ?>">
+                    </iframe>
                 </div>
                 <div class="tab">
                     <h4>Raw HTML</h4>

@@ -13,7 +13,8 @@
             latestResult = result;
             parentElement.className = "status-loaded";
             document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(result.value);
-            document.getElementById("mammoth-docx-visual-preview").innerHTML = result.value;
+            var visualPreviewDocument = document.getElementById("mammoth-docx-visual-preview").contentDocument;
+            visualPreviewDocument.body.innerHTML = result.value;
         }
     );
     
