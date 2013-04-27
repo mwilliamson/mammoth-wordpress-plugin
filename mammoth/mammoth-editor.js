@@ -4,7 +4,7 @@
     var parentElement = document.getElementById("mammoth-docx-uploader");
     
     uploadElement.addEventListener('change', function() {
-        parentElement.attr("class", "status-loading");
+        parentElement.className = "status-loading";
     }, false);
     
     mammoth.fileInput(
