@@ -118,11 +118,21 @@ class DocxConverter(object):
         _wait_for_element_not_visible(self._driver, id="mammoth-docx-loading")
 
     def read_raw_preview(self):
+        self._select_preview_tab("Raw HTML")
         return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
 
     def read_visual_preview(self):
-        return self._driver.find_element_by_id("mammoth-docx-visual-preview").text
-        
+        self._select_preview_tab("Visual")
+        try:
+            self._driver.switch_to_frame(self._driver.find_element_by_id("mammoth-docx-visual-preview"))
+            return self._driver.find_element_by_css_selector("body").text
+        finally:
+            self._driver.switch_to_default_content()
+    
+    def _select_preview_tab(self, name):
+        preview_element = self._driver.find_element_by_class_name("mammoth-docx-preview")
+        preview_element.find_element_by_xpath(".//*[text() = '{0}']".format(name)).click()
+    
     def insert_html(self):
         self._driver.find_element_by_id("mammoth-docx-insert").click()
 
