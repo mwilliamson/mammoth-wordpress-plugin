@@ -53,7 +53,10 @@ function mammoth_render_editor_box( $post ) {
             <div class="mammoth-tabs">
                 <div class="tab">
                     <h4>Visual</h4>
-                    <iframe id="mammoth-docx-visual-preview" src="<?php echo plugins_url( 'mammoth/visual-preview.html' ); ?>">
+                    <iframe
+                        id="mammoth-docx-visual-preview"
+                        src="<?php echo plugins_url( 'mammoth/visual-preview.html' ); ?>"
+                        data-stylesheets="<?php echo mammoth_editor_stylesheets_list(); ?>">
                     </iframe>
                 </div>
                 <div class="tab">
@@ -83,4 +86,36 @@ function mammoth_load_javascript() {
 function mammoth_load_script( $name ) {
     $url = plugins_url( 'mammoth/' . $name . '.js' );
     echo '<script src="'. $url . '"></script>';
+}
+
+function mammoth_editor_stylesheets_list( ) {
+    global $editor_styles;
+    $editor_styles = (array) $editor_styles;
+    
+    // Taken from class-wp-editor.php
+    if ( ! empty( $editor_styles ) && is_array( $editor_styles ) ) {
+        $mce_css = array();
+        $editor_styles = array_unique($editor_styles);
+        $style_uri = get_stylesheet_directory_uri();
+        $style_dir = get_stylesheet_directory();
+
+        if ( is_child_theme() ) {
+            $template_uri = get_template_directory_uri();
+            $template_dir = get_template_directory();
+
+            foreach ( $editor_styles as $key => $file ) {
+                if ( $file && file_exists( "$template_dir/$file" ) )
+                    $mce_css[] = "$template_uri/$file";
+            }
+        }
+
+        foreach ( $editor_styles as $file ) {
+            if ( $file && file_exists( "$style_dir/$file" ) )
+                $mce_css[] = "$style_uri/$file";
+        }
+
+        return implode( ',', $mce_css );
+    } else {
+        return 'visual-preview.css';
+    }
 }

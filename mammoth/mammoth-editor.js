@@ -2,6 +2,7 @@
     var latestResult = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
     var parentElement = document.getElementById("mammoth-docx-uploader");
+    var visualPreviewElement = document.getElementById("mammoth-docx-visual-preview");
     
     uploadElement.addEventListener('change', function() {
         parentElement.className = "status-loading";
@@ -19,6 +20,14 @@
         }
     );
     
+    document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
+        if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
+            insertText(document.getElementById("content"), latestResult.value);
+        } else {
+            tinyMCE.execCommand('mceInsertRawHTML', false, latestResult.value);
+        }
+    }, false);
+    
     function showError(error) {
         if (error.message) {
             error = error.message;
@@ -35,10 +44,10 @@
     }
     
     function showPreview(value) {
-        document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(value);
-        
-        var visualPreviewDocument = document.getElementById("mammoth-docx-visual-preview").contentDocument;
+        var visualPreviewDocument = visualPreviewElement.contentDocument;
+        setUpVisualPreviewStylesheets();
         visualPreviewDocument.body.innerHTML = value;
+        document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(value);
     }
     
     function showMessages(messages) {
@@ -54,14 +63,6 @@
                 "<p>No messages.</p>";
         }
     }
-    
-    document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
-        if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
-            insertText(document.getElementById("content"), latestResult.value);
-        } else {
-            tinyMCE.execCommand('mceInsertRawHTML', false, latestResult.value);
-        }
-    }, false);
 
     function insertText(element, text) {
         var startPosition = element.selectionStart;
@@ -85,5 +86,22 @@
     
     function capitalise(string) {
         return string.charAt(0).toUpperCase() + string.substring(1);
+    }
+    
+    var visualStylesheetsAlreadySetUp = false;
+    function setUpVisualPreviewStylesheets() {
+        if (visualStylesheetsAlreadySetUp) {
+            return;
+        }
+        visualStylesheetsAlreadySetUp = true;
+        var visualPreviewDocument = visualPreviewElement.contentDocument;
+        var stylesheets = visualPreviewElement.getAttribute("data-stylesheets").split(",");
+        stylesheets.forEach(function(stylesheet) {
+            var element = document.createElement("link");
+            element.rel = "stylesheet";
+            element.type = "text/css";
+            element.href = stylesheet;
+            visualPreviewDocument.head.appendChild(element);
+        });
     }
 })();
