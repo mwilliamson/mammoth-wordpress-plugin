@@ -49,7 +49,7 @@ function mammoth_render_editor_box( $post ) {
         </p>
     
         <div class="mammoth-docx-preview">
-            <p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>
+            <p><input type="button" id="mammoth-docx-insert" value="Insert into editor" /></p>
             <div class="mammoth-tabs">
                 <div class="tab">
                     <h4>Visual</h4>
