@@ -65,9 +65,11 @@ function mammoth_render_editor_box( $post ) {
 
 
 function mammoth_load_javascript() {
-    $url = plugins_url( 'mammoth/mammoth.js' );
-    echo '"<script src="'. $url . '"></script>"';
+    mammoth_load_script( 'mammoth' );
+    mammoth_load_script( 'mammoth-editor' );
+}
 
-    $url = plugins_url( 'mammoth/mammoth-editor.js' );
+function mammoth_load_script( $name ) {
+    $url = plugins_url( 'mammoth/' . $name . '.js' );
     echo '"<script src="'. $url . '"></script>"';
 }
