@@ -45,7 +45,7 @@ function mammoth_render_editor_box( $post ) {
     
         <div class="mammoth-docx-preview">
             <p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>
-            <div class="tabs">
+            <div class="mammoth-tabs">
                 <div class="tab">
                     <h4>Visual</h4>
                     <div id="mammoth-docx-visual-preview">
@@ -67,6 +67,7 @@ function mammoth_render_editor_box( $post ) {
 function mammoth_load_javascript() {
     mammoth_load_script( 'mammoth' );
     mammoth_load_script( 'mammoth-editor' );
+    mammoth_load_script( 'tabs' );
 }
 
 function mammoth_load_script( $name ) {
