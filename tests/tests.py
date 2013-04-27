@@ -18,6 +18,7 @@ def can_convert_simple_docx_to_html():
     with _add_new_post() as add_post_page:
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>Walking on imported air</p>")
+        assert_equal(add_post_page.docx_converter.read_visual_preview(), "Walking on imported air")
 
 
 @istest
@@ -118,6 +119,9 @@ class DocxConverter(object):
 
     def read_raw_preview(self):
         return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
+
+    def read_visual_preview(self):
+        return self._driver.find_element_by_id("mammoth-docx-visual-preview").text
         
     def insert_html(self):
         self._driver.find_element_by_id("mammoth-docx-insert").click()

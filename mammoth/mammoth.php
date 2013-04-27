@@ -44,13 +44,19 @@ function mammoth_render_editor_box( $post ) {
         </div>
     
         <div class="mammoth-docx-preview">
-    
             <p><input type="button" id="mammoth-docx-insert" value="Insert" /></p>
-    
-            <h4>Raw HTML</h4>
-            <pre id="mammoth-docx-raw-preview">
-            </pre>
-            
+            <div class="tabs">
+                <div class="tab">
+                    <h4>Visual</h4>
+                    <div id="mammoth-docx-visual-preview">
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Raw HTML</h4>
+                    <pre id="mammoth-docx-raw-preview">
+                    </pre>
+                </div>
+            </div>
         </div>
     
     </div>
