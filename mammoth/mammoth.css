@@ -29,3 +29,7 @@
     color: white;
     cursor: pointer;
 }
+
+.mammoth-tabs .tabs-nav li.selected {
+    background-color: #2C4766;
+}
