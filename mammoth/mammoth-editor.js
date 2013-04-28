@@ -32,7 +32,13 @@
         .addEventListener("click", insertIntoEditor, false);
     
     function insertIntoEditor() {
-        insertTextIntoEditor(latestResult.value);
+        mammoth.convertDocumentToHtml(latestDocumentResult, function(result) {
+            if (result.error) {
+                showError(result.error);
+            } else {
+                insertTextIntoEditor(result.value);
+            }
+        });
     }
     
     function insertTextIntoEditor(text) {
