@@ -40,8 +40,8 @@
                 formData.append("name", filename);
                 formData.append("action", "upload-attachment");
                 formData.append("post_id", document.getElementById("post_ID").value);
-                // TODO: generate nonce
-                formData.append("_wpnonce", "1613df2ed7");
+                var nonce = document.getElementById("mammoth-docx-upload-image-nonce").value;
+                formData.append("_wpnonce", nonce);
                 formData.appendFile("async-upload", {
                     binary: imageBinaryString,
                     contentType: element.contentType,

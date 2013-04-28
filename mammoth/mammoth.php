@@ -49,6 +49,11 @@ function mammoth_render_editor_box( $post ) {
         </p>
     
         <div class="mammoth-docx-preview">
+            <input type="hidden"
+                id="mammoth-docx-upload-image-nonce"
+                value="<?php echo wp_create_nonce( "media-form" ); ?>"
+                />
+            
             <p><input type="button" id="mammoth-docx-insert" value="Insert into editor" /></p>
             <div class="mammoth-tabs">
                 <div class="tab">
