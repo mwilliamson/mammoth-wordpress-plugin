@@ -54,9 +54,15 @@
                     data: formData.body(),
                     processData: false,
                     contentType: 'multipart/form-data; boundary=' + formData.boundary,
+                    dataType: "json",
                     success: function(uploadResult) {
-                        // TODO: include correct src
-                        html.selfClosing(mammoth.htmlPaths.element("img", {alt: element.altText, src: "!!!"}));
+                        var attributes = {
+                            src: uploadResult.data.url
+                        };
+                        if (element.altText) {
+                            attributes.alt = element.altText;
+                        }
+                        html.selfClosing(mammoth.htmlPaths.element("img", attributes));
                         callback();
                     },
                     failure: function() {
