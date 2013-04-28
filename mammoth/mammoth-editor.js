@@ -1,5 +1,6 @@
 (function() {
     var latestResult = null;
+    var latestDocumentResult = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
     var parentElement = document.getElementById("mammoth-docx-uploader");
     var visualPreviewElement = document.getElementById("mammoth-docx-visual-preview");
@@ -8,14 +9,21 @@
         parentElement.className = "status-loading";
     }, false);
     
-    mammoth.fileInput(
+    mammoth.readFileInputOnChange(
         uploadElement,
-        function(result) {
-            latestResult = result;
-            if (result.error) {
+        function(documentResult) {
+            latestDocumentResult = documentResult;
+            if (latestDocumentResult.error) {
                 showError(result.error);
             } else {
-                showResult(result);
+                mammoth.convertDocumentToHtml(documentResult, function(result) {
+                    latestResult = result;
+                    if (result.error) {
+                        showError(result.error);
+                    } else {
+                        showResult(result);
+                    }
+                });
             }
         }
     );
