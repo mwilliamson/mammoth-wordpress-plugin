@@ -34,30 +34,26 @@
     function insertIntoEditor() {
         var options = Object.create(mammoth.standardOptions);
         options.convertImage = function(element, html, messages, callback) {
-            element.read().then(function(imageBuffer) {
-                // TODO: get arrayBuffer directly out of file to avoid two unnecessary conversions
-                // (ArrayBuffer -> Buffer -> ArrayBuffer)
-                var arrayBuffer = toArrayBuffer(imageBuffer);
-                
-                var formData = new FormData();
+            element.read("binary").then(function(imageBinaryString) {
+                var formData = new PolyfillFormData();
                 var filename = "word-image.png";
-                var blob = new Blob([arrayBuffer], {type: element.contentType});
                 formData.append("name", filename);
                 formData.append("action", "upload-attachment");
                 formData.append("post_id", document.getElementById("post_ID").value);
-                // TODO: third argument is ignored in Firefox 20, meaning that
-                // blob is the filename, so WordPress rejects the upload
-                formData.append("async-upload", blob, filename);
                 // TODO: generate nonce
                 formData.append("_wpnonce", "1613df2ed7");
-                
+                formData.appendFile("async-upload", {
+                    binary: imageBinaryString,
+                    contentType: element.contentType,
+                    filename: filename
+                });
                 // TODO: don't assume WordPress is at the root
                 jQuery.ajax({
                     url: "/wp-admin/async-upload.php",
                     type: "POST",
-                    data: formData,
+                    data: formData.body(),
                     processData: false,
-                    contentType: false,
+                    contentType: 'multipart/form-data; boundary=' + formData.boundary,
                     success: function(uploadResult) {
                         // TODO: include correct src
                         html.selfClosing(mammoth.htmlPaths.element("img", {alt: element.altText, src: "!!!"}));
@@ -173,4 +169,46 @@
         }
         return arrayBuffer;
     }
+    
+    function PolyfillFormData() {
+        this.boundary = "-----------------------------" + Math.floor(Math.random() * 0x100000000);
+        this._fields = [];
+        this._files = [];
+    }
+    
+    PolyfillFormData.prototype.append = function(key, value) {
+        this._fields.push({key: key, value: value});
+    };
+    
+    PolyfillFormData.prototype.appendFile = function(key, file) {
+        this._files.push({key: key, file: file});
+    };
+    
+    PolyfillFormData.prototype.body = function() {
+        var boundary = this.boundary;
+        var body = "\r\n";
+        this._fields.forEach(function(field) {
+            body += "--" + boundary + "\r\n";
+            body += "Content-Disposition: form-data; name=\"" + field.key + "\"\r\n\r\n";
+            body += field.value + "\r\n";
+        });
+        this._files.forEach(function(field) {
+            body += "--" + boundary + "\r\n";
+            body += 'Content-Disposition: form-data; name="' + field.key + '"; filename="' + field.file.filename + '"\r\n';
+            if (field.file.contentType) {
+                body += "Content-Type: " + field.file.contentType + "\r\n\r\n";
+            }
+            body += field.file.binary + "\r\n";
+        });
+        body += "--" + boundary +"--\r\n";
+        
+        var nBytes = body.length
+        var ui8Data = new Uint8Array(nBytes);
+        for (var nIdx = 0; nIdx < nBytes; nIdx++) {
+            ui8Data[nIdx] = body.charCodeAt(nIdx) & 0xff;
+        }
+        return ui8Data;
+    };
+    
 })();
+
