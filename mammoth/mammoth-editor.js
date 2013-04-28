@@ -16,7 +16,7 @@
             if (latestDocumentResult.error) {
                 showError(result.error);
             } else {
-                mammoth.convertDocumentToHtml(documentResult, function(result) {
+                mammoth.convertDocumentToHtml(documentResult, mammoth.standardOptions, function(result) {
                     latestResult = result;
                     if (result.error) {
                         showError(result.error);
@@ -32,7 +32,46 @@
         .addEventListener("click", insertIntoEditor, false);
     
     function insertIntoEditor() {
-        mammoth.convertDocumentToHtml(latestDocumentResult, function(result) {
+        var options = Object.create(mammoth.standardOptions);
+        options.convertImage = function(element, html, messages, callback) {
+            element.read().then(function(imageBuffer) {
+                // TODO: get arrayBuffer directly out of file to avoid two unnecessary conversions
+                // (ArrayBuffer -> Buffer -> ArrayBuffer)
+                var arrayBuffer = toArrayBuffer(imageBuffer);
+                
+                var formData = new FormData();
+                var filename = "word-image.png";
+                var blob = new Blob([arrayBuffer], {type: element.contentType});
+                formData.append("name", filename);
+                formData.append("action", "upload-attachment");
+                formData.append("post_id", document.getElementById("post_ID").value);
+                // TODO: third argument is ignored in Firefox 20, meaning that
+                // blob is the filename, so WordPress rejects the upload
+                formData.append("async-upload", blob, filename);
+                // TODO: generate nonce
+                formData.append("_wpnonce", "1613df2ed7");
+                
+                // TODO: don't assume WordPress is at the root
+                jQuery.ajax({
+                    url: "/wp-admin/async-upload.php",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(uploadResult) {
+                        // TODO: include correct src
+                        html.selfClosing(mammoth.htmlPaths.element("img", {alt: element.altText, src: "!!!"}));
+                        callback();
+                    },
+                    failure: function() {
+                        // TODO: record error
+                        callback();
+                    }
+                });
+            }).done();
+        };
+        
+        mammoth.convertDocumentToHtml(latestDocumentResult, options, function(result) {
             if (result.error) {
                 showError(result.error);
             } else {
@@ -124,5 +163,14 @@
             element.href = stylesheet;
             visualPreviewDocument.head.appendChild(element);
         });
+    }
+    
+    function toArrayBuffer(buffer) {
+        var arrayBuffer = new ArrayBuffer(buffer.length);
+        var view = new Uint8Array(arrayBuffer);
+        for (var i = 0; i < buffer.length; ++i) {
+            view[i] = buffer.readUInt8(i);
+        }
+        return arrayBuffer;
     }
 })();
