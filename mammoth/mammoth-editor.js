@@ -28,13 +28,20 @@
         }
     );
     
-    document.getElementById("mammoth-docx-insert").addEventListener("click", function() {
+    document.getElementById("mammoth-docx-insert")
+        .addEventListener("click", insertIntoEditor, false);
+    
+    function insertIntoEditor() {
+        insertTextIntoEditor(latestResult.value);
+    }
+    
+    function insertTextIntoEditor(text) {
         if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
-            insertText(document.getElementById("content"), latestResult.value);
+            insertText(document.getElementById("content"), text);
         } else {
-            tinyMCE.execCommand('mceInsertRawHTML', false, latestResult.value);
+            tinyMCE.execCommand('mceInsertRawHTML', false, text);
         }
-    }, false);
+    }
     
     function showError(error) {
         if (error.message) {
