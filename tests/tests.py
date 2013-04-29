@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+import requests
 
 
 import logging
@@ -43,6 +44,26 @@ def clicking_insert_button_inserts_raw_html_into_visual_editor():
         add_post_page.editor.select_text_tab()
         # WordPress editor strips <p> tags
         assert_equal(add_post_page.editor.text(), "Walking on imported air")
+
+
+@istest
+def images_are_uploaded_as_part_of_post():
+    with WordPressBrowser.start() as browser:
+        browser.login()
+        add_post_page = browser.add_new_post()
+        
+        add_post_page.docx_converter.upload(_test_data_path("tiny-picture.docx"))
+        add_post_page.editor.select_text_tab()
+        add_post_page.docx_converter.insert_html()
+
+        add_post_page.editor.wait_for_text("img")
+        add_post_page.publish()
+        post_page = add_post_page.view_post()
+        
+        image = post_page.find_body_element(css_selector="img")
+        image_response = requests.get(image.get_attribute("src"))
+        assert_equal(_read_test_data("tiny-picture.png", "rb"), image_response.content)
+        
 
 
 @contextlib.contextmanager
@@ -101,10 +122,22 @@ class AddNewPostPage(object):
         return DocxConverter(self._driver)
         
     def trash(self):
+        self._scroll_to_top()
+        self._driver.find_element_by_css_selector("#delete-action a").click()
+        
+    def publish(self):
+        self._scroll_to_top()
+        self._driver.find_element_by_id("publish").click()
+
+    def view_post(self):
+        self._scroll_to_top()
+        self._driver.find_element_by_link_text("View post").click()
+        return ViewPostPage(self._driver)
+
+    def _scroll_to_top(self):
         # Scroll to top since Selenium might accidentally click on static position toolbar instead
         self._driver.execute_script("window.scrollTo(0, 0);");
-        self._driver.find_element_by_css_selector("#delete-action a").click()
-
+        
 
 class DocxConverter(object):
     def __init__(self, driver):
@@ -153,12 +186,29 @@ class ContentEditor(object):
         
     def text(self):
         return self._driver.find_element_by_id("content").get_attribute("value")
+        
+    def wait_for_text(self, text):
+        return WebDriverWait(self._driver, 10).until(lambda driver: text in self.text())
+
+
+class ViewPostPage(object):
+    def __init__(self, driver):
+        self._driver = driver
+        
+    def find_body_element(self, css_selector):
+        body = self._driver.find_element_by_css_selector(".entry-content")
+        return body.find_element_by_css_selector(css_selector)
 
 
 def _test_data_path(path):
     full_path = os.path.join(os.path.dirname(__file__), "test-data", path)
     assert os.path.exists(full_path)
     return full_path
+    
+    
+def _read_test_data(path, flags):
+    with open(_test_data_path(path), flags) as f:
+        return f.read()
 
 
 def _wait_for_element_visible(driver, id):
