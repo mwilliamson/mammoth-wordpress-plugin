@@ -81,7 +81,7 @@
         });
         // TODO: don't assume WordPress is at the root
         jQuery.ajax({
-            url: "/wp-admin/async-upload.php",
+            url: document.getElementById("mammoth-docx-upload-image-href").value,
             type: "POST",
             data: formData.body(),
             processData: false,
