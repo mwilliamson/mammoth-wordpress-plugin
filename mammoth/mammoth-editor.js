@@ -35,26 +35,11 @@
         var options = Object.create(mammoth.standardOptions);
         options.convertImage = function(element, html, messages, callback) {
             element.read("binary").then(function(imageBinaryString) {
-                var formData = new PolyfillFormData();
                 var filename = "word-image.png";
-                formData.append("name", filename);
-                formData.append("action", "upload-attachment");
-                formData.append("post_id", document.getElementById("post_ID").value);
-                var nonce = document.getElementById("mammoth-docx-upload-image-nonce").value;
-                formData.append("_wpnonce", nonce);
-                formData.appendFile("async-upload", {
-                    binary: imageBinaryString,
+                uploadImage({
+                    filename: filename,
                     contentType: element.contentType,
-                    filename: filename
-                });
-                // TODO: don't assume WordPress is at the root
-                jQuery.ajax({
-                    url: "/wp-admin/async-upload.php",
-                    type: "POST",
-                    data: formData.body(),
-                    processData: false,
-                    contentType: 'multipart/form-data; boundary=' + formData.boundary,
-                    dataType: "json",
+                    binary: imageBinaryString,
                     success: function(uploadResult) {
                         var attributes = {
                             src: uploadResult.data.url
@@ -65,10 +50,7 @@
                         html.selfClosing(mammoth.htmlPaths.element("img", attributes));
                         callback();
                     },
-                    failure: function() {
-                        // TODO: record error
-                        callback();
-                    }
+                    failure: callback
                 });
             }).done();
         };
@@ -79,6 +61,34 @@
             } else {
                 insertTextIntoEditor(result.value);
             }
+        });
+    }
+    
+    function uploadImage(options) {
+        var filename = options.filename;
+        var contentType = options.contentType;
+        var imageBinaryString = options.binary;
+        var formData = new PolyfillFormData();
+        formData.append("name", filename);
+        formData.append("action", "upload-attachment");
+        formData.append("post_id", document.getElementById("post_ID").value);
+        var nonce = document.getElementById("mammoth-docx-upload-image-nonce").value;
+        formData.append("_wpnonce", nonce);
+        formData.appendFile("async-upload", {
+            binary: imageBinaryString,
+            contentType: contentType,
+            filename: filename
+        });
+        // TODO: don't assume WordPress is at the root
+        jQuery.ajax({
+            url: "/wp-admin/async-upload.php",
+            type: "POST",
+            data: formData.body(),
+            processData: false,
+            contentType: 'multipart/form-data; boundary=' + formData.boundary,
+            dataType: "json",
+            success: options.success,
+            failure: options.failure
         });
     }
     
