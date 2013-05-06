@@ -79,7 +79,6 @@
             contentType: contentType,
             filename: filename
         });
-        // TODO: don't assume WordPress is at the root
         jQuery.ajax({
             url: document.getElementById("mammoth-docx-upload-image-href").value,
             type: "POST",
