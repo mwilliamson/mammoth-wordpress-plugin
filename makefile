@@ -1,6 +1,6 @@
 .PHONY: test setup _wordpress/wordpress/wp-content/plugins/mammoth
 
-setup: _wordpress/wordpress/wp-content/plugins/mammoth
+setup: _wordpress/wordpress/wp-content/plugins/mammoth mammoth/mammoth.js
 
 _whack/bin/python:
 	virtualenv _whack
