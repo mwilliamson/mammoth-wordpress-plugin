@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Mammoth .docx converter ===
 Contributors: michaelwilliamson
 Tags: docx, html, word, office
 Requires at least: 3.5
