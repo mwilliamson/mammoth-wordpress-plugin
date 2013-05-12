@@ -27,7 +27,7 @@ function mammoth_add_post_meta_box() {
 }
 
 function mammoth_admin_style() {
-    wp_enqueue_style( 'mammoth-style', plugins_url( 'mammoth/mammoth.css' ) );
+    wp_enqueue_style( 'mammoth-style', plugins_url( 'mammoth-docx-converter/mammoth.css' ) );
 }
 
 
@@ -66,7 +66,7 @@ function mammoth_render_editor_box( $post ) {
                     <h4>Visual</h4>
                     <iframe
                         id="mammoth-docx-visual-preview"
-                        src="<?php echo plugins_url( 'mammoth/visual-preview.html' ); ?>"
+                        src="<?php echo plugins_url( 'mammoth-docx-converter/visual-preview.html' ); ?>"
                         data-stylesheets="<?php echo mammoth_editor_stylesheets_list(); ?>">
                     </iframe>
                 </div>
@@ -95,7 +95,7 @@ function mammoth_load_javascript() {
 }
 
 function mammoth_load_script( $name ) {
-    $url = plugins_url( 'mammoth/' . $name . '.js' );
+    $url = plugins_url( 'mammoth-docx-converter/' . $name . '.js' );
     echo '<script src="'. $url . '"></script>';
 }
 
