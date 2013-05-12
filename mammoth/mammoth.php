@@ -1,7 +1,9 @@
 <?php
 /*
-Plugin Name: Mammoth
+Plugin Name: Mammoth .docx converter
 Plugin URI: https://github.com/mwilliamson/mammoth-wordpress-plugin
+Description: Mammoth converts semantically marked up .docx documents to simple and clean HTML.
+Version: 0.1.0
 Author: Michael Williamson
 Author URI: http://mike.zwobble.org/
 License: BSD 2-clause
