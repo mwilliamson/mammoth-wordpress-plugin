@@ -2,4 +2,4 @@
 /_wordpress
 /tests/_virtualenv
 *.pyc
-/mammoth/mammoth.js
+/mammoth-docx-converter/mammoth.js
