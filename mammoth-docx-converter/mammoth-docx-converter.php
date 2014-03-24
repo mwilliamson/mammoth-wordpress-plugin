@@ -89,7 +89,7 @@ function mammoth_render_editor_box( $post ) {
 
 
 function mammoth_load_javascript() {
-    mammoth_load_script( 'mammoth' );
+    mammoth_load_script( 'mammoth.browser.min' );
     mammoth_load_script( 'mammoth-editor' );
     mammoth_load_script( 'tabs' );
 }

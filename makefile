@@ -1,6 +1,10 @@
-.PHONY: test setup _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter
+.PHONY: test setup _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter mammoth-docx-converter/mammoth-editor.js
 
-setup: _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter mammoth-docx-converter/mammoth.js
+setup: mammoth-docx-converter/mammoth-editor.js _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter
+
+mammoth-docx-converter/mammoth-editor.js:
+	cd js; npm install
+	js/node_modules/.bin/browserify js/mammoth-editor.js > $@
 
 _whack/bin/python:
 	virtualenv _whack
@@ -19,7 +23,7 @@ _wordpress: _whack/bin/whack
 
 _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter: _wordpress
 	rm -r $@
-	cp -rT `pwd`/mammoth-docx-converter $@
+	ln -sfT `pwd`/mammoth-docx-converter $@
 	_wordpress/bin/wp plugin activate mammoth-docx-converter
 
 tests/_virtualenv/bin/python:

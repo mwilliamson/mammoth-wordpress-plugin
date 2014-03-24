@@ -1,67 +1,73 @@
 (function() {
-    var latestResult = null;
-    var latestDocumentResult = null;
+    var mammoth = require("mammoth");
+    var htmlPaths = require("mammoth/lib/html-paths");
+    
+    var latestDocumentArrayBuffer = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
     var parentElement = document.getElementById("mammoth-docx-uploader");
     var visualPreviewElement = document.getElementById("mammoth-docx-visual-preview");
     
-    uploadElement.addEventListener('change', function() {
+    uploadElement.addEventListener('change', function(event) {
         parentElement.className = "status-loading";
+        handleFileSelect(event);
     }, false);
     
-    mammoth.readFileInputOnChange(
-        uploadElement,
-        function(documentResult) {
-            latestDocumentResult = documentResult;
-            if (latestDocumentResult.error) {
-                showError(result.error);
-            } else {
-                mammoth.convertDocumentToHtml(documentResult, mammoth.standardOptions, function(result) {
-                    latestResult = result;
-                    if (result.error) {
-                        showError(result.error);
-                    } else {
-                        showResult(result);
-                    }
-                });
-            }
-        }
-    );
+    function handleFileSelect(event) {
+        readFileInputEventAsArrayBuffer(event, function(arrayBuffer) {
+            latestDocumentArrayBuffer = arrayBuffer;
+            mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+                .then(function(result) {
+                    showResult(result);
+                })
+                .then(null, showError);
+        });
+    }
+    
+    function readFileInputEventAsArrayBuffer(event, callback) {
+        var file = event.target.files[0];
+
+        var reader = new FileReader();
+        
+        reader.onload = function(loadEvent) {
+            var arrayBuffer = loadEvent.target.result;
+            callback(arrayBuffer);
+        };
+        
+        reader.readAsArrayBuffer(file);
+    }
     
     document.getElementById("mammoth-docx-insert")
         .addEventListener("click", insertIntoEditor, false);
     
     function insertIntoEditor() {
-        var options = Object.create(mammoth.standardOptions);
-        options.convertImage = function(element, html, messages, callback) {
-            element.read("binary").then(function(imageBinaryString) {
-                var filename = "word-image.png";
-                uploadImage({
-                    filename: filename,
-                    contentType: element.contentType,
-                    binary: imageBinaryString,
-                    success: function(uploadResult) {
-                        var attributes = {
-                            src: uploadResult.data.url
-                        };
-                        if (element.altText) {
-                            attributes.alt = element.altText;
-                        }
-                        html.selfClosing(mammoth.htmlPaths.element("img", attributes));
-                        callback();
-                    },
-                    failure: callback
-                });
-            }).done();
+        var options = {
+            convertImage: function(element, html, messages, callback) {
+                element.read("binary").then(function(imageBinaryString) {
+                    var filename = "word-image.png";
+                    uploadImage({
+                        filename: filename,
+                        contentType: element.contentType,
+                        binary: imageBinaryString,
+                        success: function(uploadResult) {
+                            var attributes = {
+                                src: uploadResult.data.url
+                            };
+                            if (element.altText) {
+                                attributes.alt = element.altText;
+                            }
+                            html.selfClosing(htmlPaths.element("img", attributes));
+                            callback();
+                        },
+                        failure: callback
+                    });
+                }).then(null, showError);
+            }
         };
         
-        mammoth.convertDocumentToHtml(latestDocumentResult, options, function(result) {
-            if (result.error) {
-                showError(result.error);
-            } else {
+        mammoth.convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
+            .then(function(result) {
                 insertTextIntoEditor(result.value);
-            }
-        });
+            }, showError);
     }
     
     function uploadImage(options) {
