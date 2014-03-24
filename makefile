@@ -1,10 +1,13 @@
 .PHONY: test setup _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter mammoth-docx-converter/mammoth-editor.js
 
-setup: mammoth-docx-converter/mammoth-editor.js _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter
+setup: mammoth-docx-converter/mammoth-editor.js mammoth-docx-converter/readme.txt _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter
 
 mammoth-docx-converter/mammoth-editor.js:
 	cd js; npm install
 	js/node_modules/.bin/browserify js/mammoth-editor.js > $@
+
+mammoth-docx-converter/readme.txt: readme.txt
+	cp readme.txt $@
 
 _whack/bin/python:
 	virtualenv _whack
