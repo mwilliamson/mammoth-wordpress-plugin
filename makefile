@@ -22,7 +22,7 @@ _wordpress: _whack/bin/whack
 			--disable-cache
 
 _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter: _wordpress
-	rm -r $@
+	rm -f $@
 	ln -sfT `pwd`/mammoth-docx-converter $@
 	_wordpress/bin/wp plugin activate mammoth-docx-converter
 
