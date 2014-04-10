@@ -33,6 +33,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.6 =
+
+* Update to mammoth 0.2.2
+
+* Pretty print HTML output
+
 = 0.1.5 =
 
 * Fix versions
