@@ -12,10 +12,18 @@
         handleFileSelect(event);
     }, false);
     
+    function convertToHtml(input, options) {
+        var fullOptions = {prettyPrint: true};
+        for (var key in options) {
+            fullOptions[key] = options[key];
+        }
+        return mammoth.convertToHtml(input, fullOptions);
+    }
+    
     function handleFileSelect(event) {
         readFileInputEventAsArrayBuffer(event, function(arrayBuffer) {
             latestDocumentArrayBuffer = arrayBuffer;
-            mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+            convertToHtml({arrayBuffer: arrayBuffer})
                 .then(function(result) {
                     showResult(result);
                 })
@@ -64,7 +72,7 @@
             }
         };
         
-        mammoth.convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
+        convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
             .then(function(result) {
                 insertTextIntoEditor(result.value);
             }, showError);
