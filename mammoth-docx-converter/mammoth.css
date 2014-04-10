@@ -27,6 +27,11 @@
     height: 350px;
 }
 
+#mammoth-docx-raw-preview {
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
 
 .mammoth-tabs .tabs-nav li {
     display: inline-block;
