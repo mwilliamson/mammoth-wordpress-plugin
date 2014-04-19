@@ -2,7 +2,7 @@
 Contributors: michaelwilliamson
 Tags: docx, html, word, office
 Requires at least: 3.5
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 0.1.5
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
