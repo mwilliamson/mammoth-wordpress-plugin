@@ -132,7 +132,11 @@
         var visualPreviewDocument = visualPreviewElement.contentDocument;
         setUpVisualPreviewStylesheets();
         visualPreviewDocument.body.innerHTML = value;
-        document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(value);
+        // TODO: Test image replacement
+        // TODO: Use a less hack-tastic method of replacing images,
+        // such as rendering the HTML twice, once with images, once without
+        var htmlWithoutImageData = value.replace(/(<img\s[^>]*)src="data:[^"]*"([^>]* \/>)/g, '$1src="path/to/image"$2');
+        document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(htmlWithoutImageData);
     }
     
     function showMessages(messages) {
