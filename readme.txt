@@ -39,6 +39,8 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 * Pretty print HTML output
 
+* Hide inline image data in raw HTML preview
+
 = 0.1.5 =
 
 * Fix versions
