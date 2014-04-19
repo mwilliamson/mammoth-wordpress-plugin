@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+from selenium.common.exceptions import NoAlertPresentException
 import requests
 
 
@@ -18,7 +19,7 @@ selenium_logger.setLevel(logging.WARNING)
 def can_convert_simple_docx_to_html():
     with _add_new_post() as add_post_page:
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
-        assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>Walking on imported air</p>")
+        assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>\n  Walking on imported air\n</p>")
         assert_equal(add_post_page.docx_converter.read_visual_preview(), "Walking on imported air")
 
 
@@ -30,7 +31,7 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         add_post_page.docx_converter.insert_html()
         
-        assert_equal(add_post_page.editor.text(), "<p>Walking on imported air</p>")
+        assert_equal(add_post_page.editor.text(), "<p>\n  Walking on imported air\n</p>")
 
 
 @istest
@@ -124,6 +125,10 @@ class AddNewPostPage(object):
     def trash(self):
         self._scroll_to_top()
         self._driver.find_element_by_css_selector("#delete-action a").click()
+        try:
+            self._driver.switch_to_alert().accept()
+        except NoAlertPresentException:
+            pass
         
     def publish(self):
         self._scroll_to_top()
