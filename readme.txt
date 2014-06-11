@@ -33,9 +33,13 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.7 =
+
+* Update to mammoth.js 0.3.2. Includes support for footnotes.
+
 = 0.1.6 =
 
-* Update to mammoth 0.2.2
+* Update to mammoth.js 0.2.2
 
 * Pretty print HTML output
 
@@ -51,7 +55,7 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 0.1.3 =
 
-* Update to the latest version of mammoth (0.2.1)
+* Update to the latest version of mammoth.js (0.2.1)
 
 = 0.1 =
 
