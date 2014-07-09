@@ -25,6 +25,24 @@ There's a large mismatch between the structure used by .docx and the structure o
 meaning that the conversion is unlikely to be perfect for more complicated documents.
 Mammoth works best if you only use styles to semantically mark up your document.
 
+The following features are currently supported:
+
+* Headings.
+
+* Lists.
+
+* Tables.
+  The formatting of the table itself, such as borders, is currently ignored,
+  but the formatting of the text is treated the same as in the rest of the document.
+  
+* Footnotes.
+
+* Images.
+
+* Bold and italics.
+
+* Links.
+
 == Installation ==
 
 Install the plugin in the usual way,
@@ -33,6 +51,10 @@ If you can't see the meta box,
 make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
+
+= 0.1.8 =
+
+* Update to mammoth.js 0.3.5. Includes support for tables.
 
 = 0.1.7 =
 
