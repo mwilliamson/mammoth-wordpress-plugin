@@ -1,6 +1,5 @@
 (function() {
     var mammoth = require("mammoth");
-    var htmlPaths = require("mammoth/lib/html-paths");
     
     var latestDocumentArrayBuffer = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
@@ -49,27 +48,20 @@
     
     function insertIntoEditor() {
         var options = {
-            convertImage: function(element, html, messages, callback) {
-                element.read("binary").then(function(imageBinaryString) {
+            convertImage: mammoth.images.inline(function(element) {
+                return element.read("binary").then(function(imageBinaryString) {
                     var filename = "word-image.png";
-                    uploadImage({
+                    return uploadImage({
                         filename: filename,
                         contentType: element.contentType,
-                        binary: imageBinaryString,
-                        success: function(uploadResult) {
-                            var attributes = {
-                                src: uploadResult.data.url
-                            };
-                            if (element.altText) {
-                                attributes.alt = element.altText;
-                            }
-                            html.selfClosing(htmlPaths.element("img", attributes));
-                            callback();
-                        },
-                        failure: callback
+                        binary: imageBinaryString
                     });
-                }).then(null, showError);
-            }
+                }).then(function(uploadResult) {
+                    return {
+                        src: uploadResult.data.url
+                    };
+                });
+            })
         };
         
         convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
@@ -93,15 +85,13 @@
             contentType: contentType,
             filename: filename
         });
-        jQuery.ajax({
+        return jQuery.ajax({
             url: document.getElementById("mammoth-docx-upload-image-href").value,
             type: "POST",
             data: formData.body(),
             processData: false,
             contentType: 'multipart/form-data; boundary=' + formData.boundary,
-            dataType: "json",
-            success: options.success,
-            failure: options.failure
+            dataType: "json"
         });
     }
     
