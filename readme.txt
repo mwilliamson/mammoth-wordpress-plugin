@@ -7,8 +7,7 @@ Stable tag: 0.1.8
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
 
-Mammoth converts semantically marked up .docx documents to simple and clean HTML.
-This allows you to paste from Word documents without the usual mess.
+Mammoth converts semantically marked up .docx documents to simple and clean HTML, allowing pasting from Word documents without the usual mess.
 
 == Description ==
 
@@ -20,6 +19,7 @@ and ignoring other details.
 For instance,
 Mammoth converts any paragraph with the style `Heading1` to `h1` elements,
 rather than attempting to exactly copy the styling (font, text size, colour, etc.) of the heading.
+This allows you to paste from Word documents without the usual mess.
 
 There's a large mismatch between the structure used by .docx and the structure of HTML,
 meaning that the conversion is unlikely to be perfect for more complicated documents.
