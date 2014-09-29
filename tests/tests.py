@@ -87,11 +87,17 @@ class WordPressBrowser(object):
         self._driver = driver
         
     def login(self, username="admin", password="password1"):
-        # Set loggedout=true to avoid autofocus
-        self._get("wp-login.php?loggedout=true")
+        self._get("wp-login.php")
+        # Disable auto-focus
+        self._driver.execute_script("""
+var loginElement = document.getElementById('user_login');
+loginElement.focus = function() { };
+loginElement.select = function() { };
+""")
+        
         self._driver.find_element_by_id("user_login").send_keys("admin")
         self._driver.find_element_by_id("user_pass").send_keys("password1")
-        self._driver.find_element_by_id("wp-submit").click()
+        self._driver.find_element_by_id("user_pass").submit()
     
     def add_new_post(self):
         self._get("wp-admin/post-new.php")
