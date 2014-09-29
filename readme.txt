@@ -52,6 +52,11 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.11 =
+
+* Update mammoth.js to 0.3.11. Includes support for superscript and subscript
+  text.
+
 = 0.1.10 =
 
 * Update mammoth.js to 0.3.8. Includes support for line breaks.
