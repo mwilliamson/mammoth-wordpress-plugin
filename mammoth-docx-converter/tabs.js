@@ -1,6 +1,6 @@
 (function() {
-    Array.forEach(document.getElementsByClassName("mammoth-tabs"), function(tabsElement) {
-        var headings = Array.map(tabsElement.getElementsByClassName("tab"), function(tabElement) {
+    Array.prototype.forEach.call(document.getElementsByClassName("mammoth-tabs"), function(tabsElement) {
+        var headings = Array.prototype.map.call(tabsElement.getElementsByClassName("tab"), function(tabElement) {
             var titleElement = tabElement.children[0];
             var title = titleElement.textContent;
             tabElement.removeChild(titleElement);
