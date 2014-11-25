@@ -101,6 +101,12 @@ loginElement.select = function() { };
     
     def add_new_post(self):
         self._get("wp-admin/post-new.php")
+        # Remove the admin bar, otherwise Selenium keeps accidentally clicking things on it.
+        self._driver.execute_script("""
+            (function(bar) {
+                bar.parentNode.removeChild(bar);
+            })(document.getElementById("wpadminbar"));
+        """)
         return AddNewPostPage(self._driver)
     
     def _get(self, path):
