@@ -54,6 +54,8 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 0.1.14
 
+* Support any post type that supports the WordPress editor.
+
 * Generate consistent footnote and endnote IDs based on the post ID.
 
 * Update mammoth.js to 0.3.15.
