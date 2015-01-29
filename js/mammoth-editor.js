@@ -47,6 +47,7 @@
         .addEventListener("click", insertIntoEditor, false);
     
     function insertIntoEditor() {
+        var postId = document.getElementById("post_ID").value;
         var options = {
             convertImage: mammoth.images.inline(function(element) {
                 return element.read("binary").then(function(imageBinaryString) {
@@ -61,9 +62,9 @@
                         src: uploadResult.data.url
                     };
                 });
-            })
+            }),
+            idPrefix: "post-" + postId
         };
-        
         convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
             .then(function(result) {
                 insertTextIntoEditor(result.value);
