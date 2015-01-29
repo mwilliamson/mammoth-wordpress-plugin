@@ -52,6 +52,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.14
+
+* Generate consistent footnote and endnote IDs based on the post ID.
+
+* Update mammoth.js to 0.3.15.
+
 = 0.1.13 =
 
 * Update mammoth.js to 0.3.14. Includes support for footnotes.
