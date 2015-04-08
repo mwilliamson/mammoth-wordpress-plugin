@@ -28,6 +28,7 @@ _wordpress: _whack/bin/whack
 _wordpress/wordpress/wp-content/plugins/mammoth-docx-converter: _wordpress
 	rm -f $@
 	ln -sfT `pwd`/mammoth-docx-converter $@
+	_wordpress/bin/wp plugin deactivate --all
 	_wordpress/bin/wp plugin activate mammoth-docx-converter
 
 tests/_virtualenv/bin/python:
