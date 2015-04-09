@@ -43,8 +43,10 @@ def clicking_insert_button_inserts_raw_html_into_visual_editor():
         add_post_page.docx_converter.insert_html()
         
         add_post_page.editor.select_text_tab()
-        # WordPress editor strips <p> tags
-        assert_equal(add_post_page.editor.text(), "Walking on imported air")
+        # Some editors add in a bit of whitespace which we don't really care about
+        actual = add_post_page.editor.text().replace("&nbsp;", " ").strip()
+        # Default WordPress editor strips <p> tags, so we don't expect them even though this is HTML
+        assert_equal(actual.lstrip("<p>").rstrip("</p>").strip(), "Walking on imported air")
 
 
 @istest

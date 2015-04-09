@@ -97,10 +97,17 @@
     }
     
     function insertTextIntoEditor(text) {
-        if(!tinyMCE.activeEditor || tinyMCE.activeEditor.isHidden()) {
-            insertText(document.getElementById("content"), text);
+        var elementId = "content";
+        // The ckeditor-for-wordpress plugin shims tinyMCE in such a way
+        // that if we checked for tinyMCE first, we'd detect it as
+        // active, but the command to insert HTML would fail.
+        // Therefore, we check for CKEditor first
+        if (window.CKEDITOR && CKEDITOR.instances[elementId]) {
+            CKEDITOR.instances[elementId].insertHtml(text);
+        } else if (window.tinyMCE && tinyMCE.get(elementId) && !tinyMCE.get(elementId).isHidden()) {
+            tinyMCE.get(elementId).execCommand('mceInsertRawHTML', false, text);
         } else {
-            tinyMCE.execCommand('mceInsertRawHTML', false, text);
+            insertText(document.getElementById(elementId), text);
         }
     }
     
