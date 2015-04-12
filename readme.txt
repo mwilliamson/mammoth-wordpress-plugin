@@ -52,13 +52,13 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
-= 0.1.15
+= 0.1.15 =
 
 * Update mammoth.js to 0.3.18. Includes support for hyperlinks to bookmarks in the same document.
 
 * Add support for CKEditor.
 
-= 0.1.14
+= 0.1.14 =
 
 * Support any post type that supports the WordPress editor.
 
