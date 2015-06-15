@@ -43,6 +43,9 @@ The following features are currently supported:
 
 * Links.
 
+* Text boxes. The contents of the text box are treated as a separate paragraph
+  that appears after the paragraph containing the text box.
+
 == Installation ==
 
 Install the plugin in the usual way,
@@ -51,6 +54,10 @@ If you can't see the meta box,
 make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
+
+= 0.1.16 =
+
+* Update mammoth.js to 0.3.21. Includes basic support for text boxes.
 
 = 0.1.15 =
 
