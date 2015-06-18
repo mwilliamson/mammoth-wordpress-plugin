@@ -55,6 +55,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.17 =
+
+* Update mammoth.js to 0.3.22. Includes support for strikethrough.
+
 = 0.1.16 =
 
 * Update mammoth.js to 0.3.21. Includes basic support for text boxes.
