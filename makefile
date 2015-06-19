@@ -18,7 +18,7 @@ _whack/bin/whack: _whack/bin/python
 _wordpress: _whack/bin/whack
 	. _whack/bin/activate; \
 		whack install git+https://github.com/mwilliamson/whack-package-wordpress.git $@ \
-			-p wordpress_version=4.1 \
+			-p wordpress_version=4.2.2 \
 			-p mysql_database=wp_mammoth \
 			-p mysql_username=wp_mammoth \
 			-p mysql_password=password1 \
