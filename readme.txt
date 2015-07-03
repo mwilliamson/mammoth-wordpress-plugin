@@ -55,6 +55,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.18 =
+
+* Update mammoth.js to 0.3.23. Includes support for links and images in footnotes and endnotes.
+
 = 0.1.17 =
 
 * Update mammoth.js to 0.3.22. Includes support for strikethrough.
