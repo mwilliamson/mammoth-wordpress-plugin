@@ -55,6 +55,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.19 =
+
+* Update mammoth.js to 0.3.25-pre.1. Includes experimental support for embedded style maps.
+
 = 0.1.18 =
 
 * Update mammoth.js to 0.3.23. Includes support for links and images in footnotes and endnotes.
