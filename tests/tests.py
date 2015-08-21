@@ -194,9 +194,7 @@ class ContentEditor(object):
         self._driver = driver
         
     def select_text_tab(self):
-        # HACK: switch tab in JavaScript since using Selenium opens up the
-        # profile page with the pop-up menu in the top-right for some reason
-        self._driver.execute_script("document.getElementById('content-html').onclick()");
+        self._driver.find_element_by_id("content-html").click()
         _wait_for_element_visible(self._driver, id="content")
         
     def select_visual_tab(self):
