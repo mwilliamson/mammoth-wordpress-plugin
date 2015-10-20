@@ -4,6 +4,6 @@
     "browserify": "^3.33.0"
   },
   "dependencies": {
-    "mammoth": "~0.3.27"
+    "mammoth": "~0.3.28-pre.1"
   }
 }
