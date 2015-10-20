@@ -55,6 +55,11 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.22 =
+
+* Update mammoth.js to 0.3.28-pre.1. Fixes newlines being inserted around inline
+  elements when the editor is in text mode.
+
 = 0.1.21 =
 
 * Update mammoth.js to 0.3.27. Fixes recursive collapsing of HTML elements.
