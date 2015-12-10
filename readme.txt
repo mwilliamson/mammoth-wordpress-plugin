@@ -55,6 +55,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.23 =
+
+* Update mammoth.js to 0.3.28. This improves support for reading images.
+
 = 0.1.22 =
 
 * Update mammoth.js to 0.3.28-pre.1. Fixes newlines being inserted around inline
