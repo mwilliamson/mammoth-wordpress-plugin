@@ -94,6 +94,10 @@
             processData: false,
             contentType: 'multipart/form-data; boundary=' + formData.boundary,
             dataType: "json"
+        }).then(null, function(value) {
+            var deferred = jQuery.Deferred();
+            deferred.reject(new Error("Image upload HTTP request failed: " + value.statusText));
+            return deferred.promise();
         });
     }
     
@@ -140,9 +144,14 @@
     
     function showMessages(messages) {
         if (messages.length) {
-            var messageElements = messages.map(function(message) {
-                return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
-            }).join("");
+            var messageElements = messages
+                .filter(function(message) {
+                    return message.message;
+                })
+                .map(function(message) {
+                    return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
+                })
+                .join("");
             
             document.getElementById("mammoth-docx-messages").innerHTML =
                 "<ul>" + messageElements + "</ul>";
