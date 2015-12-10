@@ -68,6 +68,7 @@
         convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
             .then(function(result) {
                 insertTextIntoEditor(result.value);
+                showMessages(result.messages);
             }, showError);
     }
     
