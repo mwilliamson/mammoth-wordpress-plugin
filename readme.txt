@@ -55,6 +55,11 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.24 =
+
+* Update mammoth.js to 0.3.29. This improves support for mc:AlternateContent
+  elements.
+
 = 0.1.23 =
 
 * Update mammoth.js to 0.3.28. This improves support for reading images.
