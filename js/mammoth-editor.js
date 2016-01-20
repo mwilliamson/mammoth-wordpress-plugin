@@ -1,9 +1,13 @@
-(function() {
-    var mammoth = require("mammoth");
-    
+var mammoth = require("mammoth");
+
+var parentElement = document.getElementById("mammoth-docx-uploader");
+if (parentElement) {
+    setUpMammoth();
+}
+
+function setUpMammoth() {
     var latestDocumentArrayBuffer = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
-    var parentElement = document.getElementById("mammoth-docx-uploader");
     var visualPreviewElement = document.getElementById("mammoth-docx-visual-preview");
     
     uploadElement.addEventListener('change', function(event) {
@@ -251,5 +255,5 @@
         return ui8Data;
     };
     
-})();
+};
 
