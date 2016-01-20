@@ -55,6 +55,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 0.1.25 =
+
+* Update mammoth.js to 0.3.30.
+
+* Fix JavaScript error on admin pages without editors.
+
 = 0.1.24 =
 
 * Update mammoth.js to 0.3.29. This improves support for mc:AlternateContent
