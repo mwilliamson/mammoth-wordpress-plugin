@@ -54,7 +54,9 @@ For instance,
 a paragraph with the style name `Heading 1` is converted to a `h1` element.
 If you have a document with your own custom styles,
 you can use an embedded style map to tell Mammoth how those styles should be mapped.
-For instance, you could convert `WarningHeading` to `h1.warning`.
+For instance, you could convert paragraphs with the style named `WarningHeading` to `h1` elements with `class="warning"` with the style mapping:
+
+    p[style-name='WarningHeading'] => h1.warning
 
 [An online tool](http://mike.zwobble.org/projects/mammoth/embed-style-map/)
 can be used to embed style maps into an existing document.
