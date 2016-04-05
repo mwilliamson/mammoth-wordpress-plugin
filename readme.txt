@@ -45,6 +45,21 @@ The following features are currently supported:
 
 * Text boxes. The contents of the text box are treated as a separate paragraph
   that appears after the paragraph containing the text box.
+  
+= Embedded style maps =
+
+By default,
+Mammoth maps some common .docx styles to HTML elements.
+For instance,
+a paragraph with the style name `Heading 1` is converted to a `h1` element.
+If you have a document with your own custom styles,
+you can use an embedded style map to tell Mammoth how those styles should be mapped.
+For instance, you could convert `WarningHeading` to `h1.warning`.
+
+[An online tool](http://mike.zwobble.org/projects/mammoth/embed-style-map/)
+can be used to embed style maps into an existing document.
+Details of [how to write style maps can be found on the mammoth.js documentation](https://github.com/mwilliamson/mammoth.js#writing-style-maps).
+
 
 == Installation ==
 
