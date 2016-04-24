@@ -67,7 +67,7 @@ function setUpMammoth() {
                     };
                 });
             }),
-            idPrefix: "post-" + postId
+            idPrefix: "post-" + postId + "-"
         };
         convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
             .then(function(result) {
