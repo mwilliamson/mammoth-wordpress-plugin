@@ -138,6 +138,8 @@ class AddNewPostPage(object):
         
     def trash(self):
         self._scroll_to_top()
+        # We have to save the post before we can delete it
+        self._driver.find_element_by_id("save-post").click()
         self._driver.find_element_by_css_selector("#delete-action a").click()
         try:
             self._driver.switch_to_alert().accept()
