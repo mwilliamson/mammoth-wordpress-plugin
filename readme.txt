@@ -72,7 +72,7 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
-= 0.1.26 =
+= 1.0.0 =
 
 * Update mammoth.js to 0.3.33. This includes better support for reading
   documents that use undefined styles, and generates simpler HTML in some cases.
