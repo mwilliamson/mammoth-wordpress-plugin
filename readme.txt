@@ -72,6 +72,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.1.0 =
+
+* Update mammoth.js to 1.1.0. This includes support for merged table cells and
+  content controls, such as bibliographies. This should also improve
+  performance when converting larger documents.
+
 = 1.0.0 =
 
 * Update mammoth.js to 0.3.33. This includes better support for reading
