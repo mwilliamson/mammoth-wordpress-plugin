@@ -4,6 +4,7 @@ import contextlib
 from nose.tools import istest, assert_equal
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoAlertPresentException
@@ -83,7 +84,12 @@ def _add_new_post():
 class WordPressBrowser(object):
     @staticmethod
     def start():
-        return WordPressBrowser(webdriver.Firefox())
+        firefox_path = os.environ.get("FIREFOX_BIN")
+        if firefox_path is None:
+            firefox_binary = None
+        else:
+            firefox_binary = FirefoxBinary(firefox_path)
+        return WordPressBrowser(webdriver.Firefox(firefox_binary=firefox_binary))
     
     def __init__(self, driver):
         self._driver = driver
