@@ -121,7 +121,7 @@ loginElement.select = function() { };
         return self
         
     def __exit__(self, *args):
-        self._driver.close()
+        self._driver.quit()
 
 
 class AddNewPostPage(object):
