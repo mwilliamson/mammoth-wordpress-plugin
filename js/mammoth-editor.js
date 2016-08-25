@@ -63,7 +63,8 @@ function setUpMammoth() {
                     });
                 }).then(function(uploadResult) {
                     return {
-                        src: uploadResult.data.url
+                        src: uploadResult.data.url,
+                        "class": "wp-image-" + uploadResult.data.id
                     };
                 });
             }),
