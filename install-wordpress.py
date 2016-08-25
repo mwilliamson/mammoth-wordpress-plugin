@@ -220,7 +220,7 @@ def _download_files():
             "1cfd43caffe07fe7f2cfafc74c8f0d87b38d80bbb63226a1193407476508e317"),
         (
             "httpd",
-            "http://mirror.ox.ac.uk/sites/rsync.apache.org//httpd/httpd-{}.tar.gz".format(_httpd_version),
+            "http://archive.apache.org/dist/httpd/httpd-{}.tar.gz".format(_httpd_version),
             "1c39b55108223ba197cae2d0bb81c180e4db19e23d177fba5910785de1ac5527"),
         (
             "php5",
