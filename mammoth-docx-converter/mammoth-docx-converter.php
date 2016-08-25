@@ -66,6 +66,10 @@ function mammoth_render_editor_box( $post ) {
                 id="mammoth-docx-upload-image-href"
                 value="<?php echo get_site_url( null, "wp-admin/async-upload.php", "admin" ); ?>"
                 />
+            <input type="hidden"
+                id="mammoth-docx-admin-ajax-href"
+                value="<?php echo get_site_url( null, "wp-admin/admin-ajax.php", "admin" ); ?>"
+                />
             
             <p><input type="button" id="mammoth-docx-insert" value="Insert into editor" /></p>
             <div class="mammoth-tabs">

@@ -62,6 +62,13 @@ function setUpMammoth() {
                         binary: imageBinaryString
                     });
                 }).then(function(uploadResult) {
+                    if (element.altText) {
+                        setImageAltText({
+                            id: uploadResult.data.id,
+                            alt: element.altText,
+                            nonce: uploadResult.data.nonces.update
+                        });
+                    }
                     return {
                         src: uploadResult.data.url,
                         "class": "wp-image-" + uploadResult.data.id
@@ -107,7 +114,21 @@ function setUpMammoth() {
             return deferred.promise();
         });
     }
-    
+
+    function setImageAltText(options) {
+        return jQuery.ajax({
+            url: document.getElementById("mammoth-docx-admin-ajax-href").value,
+            type: "POST",
+            data: {
+                "action": "save-attachment",
+                "changes[alt]": options.alt,
+                "id": options.id,
+                "post_id": 0,
+                "nonce": options.nonce
+            }
+        })
+    }
+
     function insertTextIntoEditor(text) {
         var elementId = "content";
         // The ckeditor-for-wordpress plugin shims tinyMCE in such a way
