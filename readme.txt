@@ -72,6 +72,13 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.2.0 =
+
+* Include wp-image-* class when inserting images. This allows the WordPress
+  editor to correctly identify the image and show appropriate editing options.
+
+* Show a message while the document is being inserted.
+
 = 1.1.0 =
 
 * Update mammoth.js to 1.1.0. This includes support for merged table cells and
