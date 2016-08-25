@@ -70,10 +70,12 @@ function setUpMammoth() {
             }),
             idPrefix: "post-" + postId + "-"
         };
+        parentElement.classList.add("status-inserting");
         convertToHtml({arrayBuffer: latestDocumentArrayBuffer}, options)
             .then(function(result) {
                 insertTextIntoEditor(result.value);
                 showMessages(result.messages);
+                parentElement.classList.remove("status-inserting");
             }, showError);
     }
     
