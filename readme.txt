@@ -83,6 +83,8 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 * If an image has an alt text description in the original document, use it to
   generate the filename.
 
+* Set image filename extension based on the image content type.
+
 * Show a message while the document is being inserted.
 
 = 1.1.0 =

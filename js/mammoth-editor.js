@@ -94,7 +94,9 @@ function setUpMammoth() {
     };
     
     function generateFilename(options) {
-        return (slug(options.altText.slice(0, 50), slugOptions) || "word-image") + ".png";
+        var name = options.altText ? slug(options.altText.slice(0, 50), slugOptions) : "word-image";
+        var extension = options.contentType.split("/")[1];
+        return name + "." + extension;
     }
     
     function uploadImage(options) {
