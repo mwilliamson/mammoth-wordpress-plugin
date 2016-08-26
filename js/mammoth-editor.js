@@ -1,4 +1,5 @@
 var mammoth = require("mammoth");
+var slug = require("./slug");
 
 var parentElement = document.getElementById("mammoth-docx-uploader");
 if (parentElement) {
@@ -55,7 +56,7 @@ function setUpMammoth() {
         var options = {
             convertImage: mammoth.images.inline(function(element) {
                 return element.read("binary").then(function(imageBinaryString) {
-                    var filename = "word-image.png";
+                    var filename = generateFilename(element);
                     return uploadImage({
                         filename: filename,
                         contentType: element.contentType,
@@ -84,6 +85,16 @@ function setUpMammoth() {
                 showMessages(result.messages);
                 parentElement.classList.remove("status-inserting");
             }, showError);
+    }
+    
+    var slugCharmap = jQuery.extend({}, slug.charmap, {".": "-"});
+    var slugOptions = {
+        mode: "rfc3986",
+        charmap: slugCharmap
+    };
+    
+    function generateFilename(options) {
+        return (slug(options.altText.slice(0, 50), slugOptions) || "word-image") + ".png";
     }
     
     function uploadImage(options) {

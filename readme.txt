@@ -78,7 +78,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
   editor to correctly identify the image and show appropriate editing options.
 
 * If an image has an alt text description in the original document, set the alt
-  text when uploading that image.
+  text in the media library when uploading that image.
+
+* If an image has an alt text description in the original document, use it to
+  generate the filename.
 
 * Show a message while the document is being inserted.
 
