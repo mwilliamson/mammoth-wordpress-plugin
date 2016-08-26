@@ -87,7 +87,7 @@ function setUpMammoth() {
             }, showError);
     }
     
-    var slugCharmap = jQuery.extend({}, slug.charmap, {".": "-"});
+    var slugCharmap = jQuery.extend({}, slug.charmap, {".": "-", "\\": "-", "/": "-"});
     var slugOptions = {
         mode: "rfc3986",
         charmap: slugCharmap
