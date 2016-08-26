@@ -77,6 +77,9 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 * Include wp-image-* class when inserting images. This allows the WordPress
   editor to correctly identify the image and show appropriate editing options.
 
+* If an image has an alt text description in the original document, set the alt
+  text when uploading that image.
+
 * Show a message while the document is being inserted.
 
 = 1.1.0 =
