@@ -3,7 +3,7 @@ Contributors: michaelwilliamson
 Tags: docx, html, word, office, paste
 Requires at least: 3.5
 Tested up to: 4.6
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
 
