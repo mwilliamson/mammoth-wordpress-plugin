@@ -72,6 +72,11 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.3.0 =
+
+* Update mammoth.js to 1.2.5. This includes better support for image alt text
+  and boolean run properties (bold, italic, underline and strikethrough).
+
 = 1.2.0 =
 
 * Include wp-image-* class when inserting images. This allows the WordPress

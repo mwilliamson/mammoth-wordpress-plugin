@@ -558,12 +558,11 @@
       }
     },
     "mammoth": {
-      "version": "1.1.0",
-      "from": "mammoth@1.1.0",
-      "resolved": "https://registry.npmjs.org/mammoth/-/mammoth-1.1.0.tgz",
+      "version": "1.2.5",
+      "from": "mammoth@1.2.5",
       "dependencies": {
         "bluebird": {
-          "version": "3.4.1",
+          "version": "3.4.6",
           "from": "bluebird@~3.4.0"
         },
         "sax": {
@@ -593,7 +592,7 @@
           }
         },
         "argparse": {
-          "version": "1.0.7",
+          "version": "1.0.9",
           "from": "argparse@~1.0.3",
           "dependencies": {
             "sprintf-js": {
@@ -608,8 +607,7 @@
           "dependencies": {
             "pako": {
               "version": "0.2.9",
-              "from": "pako@~0.2.5",
-              "resolved": "https://registry.npmjs.org/pako/-/pako-0.2.9.tgz"
+              "from": "pako@~0.2.5"
             }
           }
         },
@@ -625,7 +623,7 @@
           }
         },
         "path-is-absolute": {
-          "version": "1.0.0",
+          "version": "1.0.1",
           "from": "path-is-absolute@^1.0.0"
         }
       }
