@@ -67,6 +67,14 @@ def images_are_uploaded_as_part_of_post():
         image = post_page.find_body_element(css_selector="img")
         image_response = requests.get(image.get_attribute("src"))
         assert_equal(_read_test_data("tiny-picture.png", "rb"), image_response.content)
+
+
+@istest
+def can_set_default_options():
+    with _add_new_post() as add_post_page:
+        add_post_page.inject_javascript("window.MAMMOTH_OPTIONS = {styleMap: 'p => h1'};")
+        add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
+        assert_equal(add_post_page.docx_converter.read_raw_preview(), "<h1>Walking on imported air</h1>")
         
 
 
@@ -164,7 +172,10 @@ class AddNewPostPage(object):
     def _scroll_to_top(self):
         # Scroll to top since Selenium might accidentally click on static position toolbar instead
         self._driver.execute_script("window.scrollTo(0, 0);");
-        
+
+    def inject_javascript(self, javascript):
+        self._driver.execute_script(javascript);
+
 
 class DocxConverter(object):
     def __init__(self, driver):

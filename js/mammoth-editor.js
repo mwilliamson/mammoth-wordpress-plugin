@@ -18,6 +18,11 @@ function setUpMammoth() {
     
     function convertToHtml(input, options) {
         var fullOptions = {prettyPrint: true};
+        if (typeof MAMMOTH_OPTIONS !== "undefined") {
+            for (var key in MAMMOTH_OPTIONS) {
+                fullOptions[key] = MAMMOTH_OPTIONS[key];
+            }
+        }
         for (var key in options) {
             fullOptions[key] = options[key];
         }
