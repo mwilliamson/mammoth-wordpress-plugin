@@ -70,9 +70,28 @@ def images_are_uploaded_as_part_of_post():
 
 
 @istest
-def can_set_default_options():
+def can_set_default_options_with_object():
     with _add_new_post() as add_post_page:
         add_post_page.inject_javascript("window.MAMMOTH_OPTIONS = {styleMap: 'p => h1'};")
+        add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
+        assert_equal(add_post_page.docx_converter.read_raw_preview(), "<h1>Walking on imported air</h1>")
+
+
+@istest
+def can_set_default_options_with_function_returning_object():
+    with _add_new_post() as add_post_page:
+        javascript = """
+            function MAMMOTH_OPTIONS(mammoth) {
+                return {
+                    transformDocument: mammoth.transforms.paragraph(function(paragraph) {
+                        return jQuery.extend({}, paragraph, {styleName: "Heading 1", styleId: "Heading1"});
+                    })
+                };
+            }
+
+            window.MAMMOTH_OPTIONS = MAMMOTH_OPTIONS;
+        """
+        add_post_page.inject_javascript(javascript)
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         assert_equal(add_post_page.docx_converter.read_raw_preview(), "<h1>Walking on imported air</h1>")
         
