@@ -1,7 +1,7 @@
 === Mammoth .docx converter ===
 Contributors: michaelwilliamson
 Tags: docx, html, word, office, paste
-Requires at least: 3.5
+Requires at least: 4.0
 Tested up to: 4.6
 Stable tag: 1.3.0
 License: BSD 2-clause
@@ -76,6 +76,8 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 * Update mammoth.js to 1.3.1. This includes new ways to map styles, such as
   style name prefixes.
+
+* Improve styling of preview to match the editor.
 
 = 1.3.0 =
 
