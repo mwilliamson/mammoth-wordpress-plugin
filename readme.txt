@@ -79,6 +79,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 * Improve styling of preview to match the editor.
 
+* Fix a bug where images wouldn't upload on certain server configurations.
+
+* Allow options to be passed to mammoth.js through a MAMMOTH_OPTIONS global variable.
+
 = 1.3.0 =
 
 * Update mammoth.js to 1.2.5. This includes better support for image alt text
