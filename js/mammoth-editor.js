@@ -275,7 +275,7 @@ function setUpMammoth() {
     
     PolyfillFormData.prototype.body = function() {
         var boundary = this.boundary;
-        var body = "\r\n";
+        var body = "";
         this._fields.forEach(function(field) {
             body += "--" + boundary + "\r\n";
             body += "Content-Disposition: form-data; name=\"" + field.key + "\"\r\n\r\n";
