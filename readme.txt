@@ -78,6 +78,9 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
   WordPress rejects the file. Fixes an issue where documents with EMF images
   couldn't be imported.
 
+* Update mammoth.js to 1.3.2. This includes a fix for documents where images
+  are referenced by a URI relative to the base URI.
+
 = 1.4.0 =
 
 * Update mammoth.js to 1.3.1. This includes new ways to map styles, such as
