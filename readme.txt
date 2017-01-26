@@ -72,6 +72,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.5.0 =
+
+* Handle unsuccessful image uploads where the HTTP request succeeds, but
+  WordPress rejects the file. Fixes an issue where documents with EMF images
+  couldn't be imported.
+
 = 1.4.0 =
 
 * Update mammoth.js to 1.3.1. This includes new ways to map styles, such as

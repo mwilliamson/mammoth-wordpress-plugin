@@ -128,11 +128,25 @@ function setUpMammoth() {
             processData: false,
             contentType: 'multipart/form-data; boundary=' + formData.boundary,
             dataType: "json"
-        }).then(null, function(value) {
-            var deferred = jQuery.Deferred();
-            deferred.reject(new Error("Image upload HTTP request failed: " + value.statusText));
-            return deferred.promise();
+        }).then(function(uploadResult) {
+            if (uploadResult.success !== false) {
+                return uploadResult;
+            } else {
+                return rejectImage(uploadResult.data.message);
+            }
+        }, function(value) {
+            return rejectImage(value.statusText);
         });
+    }
+    
+    function rejectImage(message) {
+        return reject(new Error("Image upload HTTP request failed: " + message));
+    }
+    
+    function reject(error) {
+        var deferred = jQuery.Deferred();
+        deferred.reject(error);
+        return deferred.promise();
     }
 
     function setImageAltText(options) {
