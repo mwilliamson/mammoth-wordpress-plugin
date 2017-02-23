@@ -63,7 +63,7 @@ function setUpMammoth() {
         var options = {
             convertImage: mammoth.images.inline(function(element) {
                 return element.read("binary").then(function(imageBinaryString) {
-                    var filename = generateFilename(element);
+                    var filename = generateFilename(element, postId);
                     return uploadImage({
                         filename: filename,
                         contentType: element.contentType,
@@ -100,10 +100,10 @@ function setUpMammoth() {
         charmap: slugCharmap
     };
     
-    function generateFilename(options) {
+    function generateFilename(options, postId) {
         var name = options.altText ? slug(options.altText.slice(0, 50), slugOptions) : "word-image";
         var extension = options.contentType.split("/")[1];
-        return name + "." + extension;
+        return name + "-" + postId + "." + extension;
     }
     
     function uploadImage(options) {
