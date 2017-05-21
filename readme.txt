@@ -11,19 +11,9 @@ Mammoth converts semantically marked up .docx documents to simple and clean HTML
 
 == Description ==
 
-Mammoth is designed to convert .docx documents,
-such as those created by Microsoft Word,
-and convert them to HTML.
-Mammoth aims to produce simple and clean HTML by using semantic information in the document,
-and ignoring other details.
-For instance,
-Mammoth converts any paragraph with the style `Heading1` to `h1` elements,
-rather than attempting to exactly copy the styling (font, text size, colour, etc.) of the heading.
-This allows you to paste from Word documents without the usual mess.
+Mammoth is designed to convert .docx documents, such as those created by Microsoft Word, and convert them to HTML. Mammoth aims to produce simple and clean HTML by using semantic information in the document, and ignoring other details. For instance, Mammoth converts any paragraph with the style `Heading1` to `h1` elements, rather than attempting to exactly copy the styling (font, text size, colour, etc.) of the heading. This allows you to paste from Word documents without the usual mess.
 
-There's a large mismatch between the structure used by .docx and the structure of HTML,
-meaning that the conversion is unlikely to be perfect for more complicated documents.
-Mammoth works best if you only use styles to semantically mark up your document.
+There's a large mismatch between the structure used by .docx and the structure of HTML, meaning that the conversion is unlikely to be perfect for more complicated documents. Mammoth works best if you only use styles to semantically mark up your document.
 
 The following features are currently supported:
 
@@ -31,9 +21,7 @@ The following features are currently supported:
 
 * Lists.
 
-* Tables.
-  The formatting of the table itself, such as borders, is currently ignored,
-  but the formatting of the text is treated the same as in the rest of the document.
+* Tables. The formatting of the table itself, such as borders, is currently ignored, but the formatting of the text is treated the same as in the rest of the document.
   
 * Footnotes and endnotes.
 
@@ -43,48 +31,33 @@ The following features are currently supported:
 
 * Links.
 
-* Text boxes. The contents of the text box are treated as a separate paragraph
-  that appears after the paragraph containing the text box.
+* Text boxes. The contents of the text box are treated as a separate paragraph that appears after the paragraph containing the text box.
   
 = Embedded style maps =
 
-By default,
-Mammoth maps some common .docx styles to HTML elements.
-For instance,
-a paragraph with the style name `Heading 1` is converted to a `h1` element.
-If you have a document with your own custom styles,
-you can use an embedded style map to tell Mammoth how those styles should be mapped.
-For instance, you could convert paragraphs with the style named `WarningHeading` to `h1` elements with `class="warning"` with the style mapping:
+By default, Mammoth maps some common .docx styles to HTML elements. For instance, a paragraph with the style name `Heading 1` is converted to a `h1` element. If you have a document with your own custom styles, you can use an embedded style map to tell Mammoth how those styles should be mapped. For instance, you could convert paragraphs with the style named `WarningHeading` to `h1` elements with `class="warning"` with the style mapping:
 
     p[style-name='WarningHeading'] => h1.warning:fresh
 
-[An online tool](http://mike.zwobble.org/projects/mammoth/embed-style-map/)
-can be used to embed style maps into an existing document.
-Details of [how to write style maps can be found on the mammoth.js documentation](https://github.com/mwilliamson/mammoth.js#writing-style-maps).
+[An online tool](http://mike.zwobble.org/projects/mammoth/embed-style-map/) can be used to embed style maps into an existing document. Details of [how to write style maps can be found on the mammoth.js documentation](https://github.com/mwilliamson/mammoth.js#writing-style-maps).
 
 
 == Installation ==
 
-Install the plugin in the usual way,
-and you should be able to use the Mammoth .docx converter when adding a post.
-If you can't see the meta box,
+Install the plugin in the usual way, and you should be able to use the Mammoth .docx converter when adding a post. If you can't see the meta box,
 make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
 
 = 1.5.0 =
 
-* Handle unsuccessful image uploads where the HTTP request succeeds, but
-  WordPress rejects the file. Fixes an issue where documents with EMF images
-  couldn't be imported.
+* Handle unsuccessful image uploads where the HTTP request succeeds, but   WordPress rejects the file. Fixes an issue where documents with EMF images couldn't be imported.
 
-* Update mammoth.js to 1.3.2. This includes a fix for documents where images
-  are referenced by a URI relative to the base URI.
+* Update mammoth.js to 1.3.2. This includes a fix for documents where images are referenced by a URI relative to the base URI.
 
 = 1.4.0 =
 
-* Update mammoth.js to 1.3.1. This includes new ways to map styles, such as
-  style name prefixes.
+* Update mammoth.js to 1.3.1. This includes new ways to map styles, such as style name prefixes.
 
 * Improve styling of preview to match the editor.
 
@@ -94,19 +67,15 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 1.3.0 =
 
-* Update mammoth.js to 1.2.5. This includes better support for image alt text
-  and boolean run properties (bold, italic, underline and strikethrough).
+* Update mammoth.js to 1.2.5. This includes better support for image alt text and boolean run properties (bold, italic, underline and strikethrough).
 
 = 1.2.0 =
 
-* Include wp-image-* class when inserting images. This allows the WordPress
-  editor to correctly identify the image and show appropriate editing options.
+* Include wp-image-* class when inserting images. This allows the WordPress editor to correctly identify the image and show appropriate editing options.
 
-* If an image has an alt text description in the original document, set the alt
-  text in the media library when uploading that image.
+* If an image has an alt text description in the original document, set the alt text in the media library when uploading that image.
 
-* If an image has an alt text description in the original document, use it to
-  generate the filename.
+* If an image has an alt text description in the original document, use it to generate the filename.
 
 * Set image filename extension based on the image content type.
 
@@ -114,26 +83,21 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 1.1.0 =
 
-* Update mammoth.js to 1.1.0. This includes support for merged table cells and
-  content controls, such as bibliographies. This should also improve
-  performance when converting larger documents.
+* Update mammoth.js to 1.1.0. This includes support for merged table cells and content controls, such as bibliographies. This should also improve performance when converting larger documents.
 
 = 1.0.0 =
 
-* Update mammoth.js to 0.3.33. This includes better support for reading
-  documents that use undefined styles, and generates simpler HTML in some cases.
+* Update mammoth.js to 0.3.33. This includes better support for reading documents that use undefined styles, and generates simpler HTML in some cases.
 
 = 0.1.25 =
 
-* Update mammoth.js to 0.3.30. This includes better support for lists made in
-  LibreOffice.
+* Update mammoth.js to 0.3.30. This includes better support for lists made in LibreOffice.
 
 * Fix JavaScript error on admin pages without editors.
 
 = 0.1.24 =
 
-* Update mammoth.js to 0.3.29. This improves support for mc:AlternateContent
-  elements.
+* Update mammoth.js to 0.3.29. This improves support for mc:AlternateContent elements.
 
 = 0.1.23 =
 
@@ -141,8 +105,7 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 0.1.22 =
 
-* Update mammoth.js to 0.3.28-pre.1. Fixes newlines being inserted around inline
-  elements when the editor is in text mode.
+* Update mammoth.js to 0.3.28-pre.1. Fixes newlines being inserted around inline elements when the editor is in text mode.
 
 = 0.1.21 =
 
@@ -150,8 +113,7 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 0.1.20 =
 
-* Update mammoth.js to 0.3.26. Improves the collapsing of HTML elements, such as
-  allowing collapsing elements generated by different runs.
+* Update mammoth.js to 0.3.26. Improves the collapsing of HTML elements, such as allowing collapsing elements generated by different runs.
 
 = 0.1.19 =
 
@@ -195,8 +157,7 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 = 0.1.11 =
 
-* Update mammoth.js to 0.3.11. Includes support for superscript and subscript
-  text.
+* Update mammoth.js to 0.3.11. Includes support for superscript and subscript text.
 
 = 0.1.10 =
 
