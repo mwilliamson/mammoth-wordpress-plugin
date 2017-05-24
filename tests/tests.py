@@ -129,7 +129,6 @@ var loginElement = document.getElementById('user_login');
 loginElement.focus = function() { };
 loginElement.select = function() { };
 """)
-        
         self._driver.find_element_by_id("user_login").send_keys("admin")
         self._driver.find_element_by_id("user_pass").send_keys("password1")
         self._driver.find_element_by_id("user_pass").submit()
