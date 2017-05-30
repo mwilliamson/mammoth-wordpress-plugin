@@ -53,9 +53,11 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 * Allow MAMMOTH_OPTIONS to override idPrefix.
 
+* Update mammoth.js to 1.4.0. This includes improved handling of hyperlinks, and converts table headers into thead elements.
+
 = 1.5.0 =
 
-* Handle unsuccessful image uploads where the HTTP request succeeds, but   WordPress rejects the file. Fixes an issue where documents with EMF images couldn't be imported.
+* Handle unsuccessful image uploads where the HTTP request succeeds, but WordPress rejects the file. Fixes an issue where documents with EMF images couldn't be imported.
 
 * Update mammoth.js to 1.3.2. This includes a fix for documents where images are referenced by a URI relative to the base URI.
 
