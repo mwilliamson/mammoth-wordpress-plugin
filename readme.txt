@@ -49,6 +49,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.7.0 =
+
+* Update mammoth.js to 1.4.2. This includes improved handling of grouped objects and non-breaking hyphens.
+
 = 1.6.0 =
 
 * Allow MAMMOTH_OPTIONS to override idPrefix.

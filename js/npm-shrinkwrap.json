@@ -568,72 +568,86 @@
       }
     },
     "mammoth": {
-      "version": "1.4.0",
-      "from": "mammoth@1.4.0",
+      "version": "1.4.2",
+      "from": "mammoth@1.4.2",
+      "resolved": "https://registry.npmjs.org/mammoth/-/mammoth-1.4.2.tgz",
       "dependencies": {
         "bluebird": {
           "version": "3.4.7",
-          "from": "bluebird@~3.4.0"
+          "from": "bluebird@~3.4.0",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.7.tgz"
         },
         "sax": {
           "version": "1.1.6",
-          "from": "sax@~1.1.1"
+          "from": "sax@~1.1.1",
+          "resolved": "https://registry.npmjs.org/sax/-/sax-1.1.6.tgz"
         },
         "underscore": {
           "version": "1.8.3",
-          "from": "underscore@~1.8.3"
+          "from": "underscore@~1.8.3",
+          "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz"
         },
         "lop": {
           "version": "0.4.0",
           "from": "lop@~0.4.0",
+          "resolved": "https://registry.npmjs.org/lop/-/lop-0.4.0.tgz",
           "dependencies": {
             "underscore": {
               "version": "1.4.4",
-              "from": "underscore@~1.4.4"
+              "from": "underscore@~1.4.4",
+              "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.4.4.tgz"
             },
             "option": {
-              "version": "0.2.3",
+              "version": "0.2.4",
               "from": "option@~0.2.1"
             },
             "duck": {
               "version": "0.1.11",
-              "from": "duck@~0.1.11"
+              "from": "duck@~0.1.11",
+              "resolved": "https://registry.npmjs.org/duck/-/duck-0.1.11.tgz"
             }
           }
         },
         "argparse": {
           "version": "1.0.9",
           "from": "argparse@~1.0.3",
+          "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.9.tgz",
           "dependencies": {
             "sprintf-js": {
               "version": "1.0.3",
-              "from": "sprintf-js@~1.0.2"
+              "from": "sprintf-js@~1.0.2",
+              "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
             }
           }
         },
         "jszip": {
           "version": "2.5.0",
           "from": "jszip@~2.5.0",
+          "resolved": "https://registry.npmjs.org/jszip/-/jszip-2.5.0.tgz",
           "dependencies": {
             "pako": {
               "version": "0.2.9",
-              "from": "pako@~0.2.5"
+              "from": "pako@~0.2.5",
+              "resolved": "https://registry.npmjs.org/pako/-/pako-0.2.9.tgz"
             }
           }
         },
         "xmlbuilder": {
           "version": "2.6.5",
           "from": "xmlbuilder@~2.6.4",
+          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-2.6.5.tgz",
           "dependencies": {
             "lodash": {
               "version": "3.10.1",
-              "from": "lodash@^3.5.0"
+              "from": "lodash@^3.5.0",
+              "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
             }
           }
         },
         "path-is-absolute": {
           "version": "1.0.1",
-          "from": "path-is-absolute@^1.0.0"
+          "from": "path-is-absolute@^1.0.0",
+          "resolved": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz"
         }
       }
     }
