@@ -17,7 +17,7 @@ _httpd_version = "2.4.18"
 _php_version = "5.6.20"
 _libxml_version = "2.9.3"
 _libmcrypt_version = "2.5.8"
-_wordpress_version = "4.7"
+_wordpress_version = "4.8"
 
 _httpd_src_dir = "httpd-{}".format(_httpd_version)
 
