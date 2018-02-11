@@ -17,7 +17,7 @@ _httpd_version = "2.4.18"
 _php_version = "5.6.20"
 _libxml_version = "2.9.3"
 _libmcrypt_version = "2.5.8"
-_wordpress_version = "4.8"
+_wordpress_version = "4.9.4"
 
 _httpd_src_dir = "httpd-{}".format(_httpd_version)
 
@@ -237,7 +237,7 @@ def _download_files():
         (
             "wordpress",
             "https://wordpress.org/wordpress-{}.tar.gz".format(_wordpress_version),
-            "7eae27ff70716dae2d2ba58280f2832fd70a208c9cdaf29ab36ac789c14d6977"),
+            "871622ce9144184d9afe25dd6e970dc5c1fcd25ac1bc1050a920e492b897bb11"),
         (
             "wp-cli",
             "https://github.com/wp-cli/wp-cli/releases/download/v0.24.0/wp-cli-0.24.0.phar",
