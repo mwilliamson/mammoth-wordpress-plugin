@@ -1,5 +1,6 @@
 import os
 import contextlib
+import time
 
 from nose.tools import istest, assert_equal
 from selenium import webdriver
@@ -132,6 +133,8 @@ loginElement.select = function() { };
         self._driver.find_element_by_id("user_login").send_keys("admin")
         self._driver.find_element_by_id("user_pass").send_keys("password1")
         self._driver.find_element_by_id("user_pass").submit()
+        # TODO: remove sleep
+        time.sleep(1)
     
     def add_new_post(self):
         self._get("wp-admin/post-new.php")

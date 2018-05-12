@@ -49,6 +49,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.9.0 =
+
+* Update mammoth.js to 1.4.6. This includes preservation of whitespace in pre elements, and paragraphs in endnotes, footnotes and comments.
+
 = 1.8.0 =
 
 * Update mammoth.js to 1.4.4. This includes better support for reading documents created by Word Online.
