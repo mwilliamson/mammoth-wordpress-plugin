@@ -172,7 +172,12 @@ function setUpMammoth() {
         if (window.CKEDITOR && CKEDITOR.instances[elementId]) {
             CKEDITOR.instances[elementId].insertHtml(text);
         } else if (window.tinyMCE && tinyMCE.get(elementId) && !tinyMCE.get(elementId).isHidden()) {
-            tinyMCE.get(elementId).execCommand('mceInsertRawHTML', false, text);
+            // This reimplements mceInsertRawHTML due to a bug in tinyMCE:
+            // https://github.com/tinymce/tinymce/issues/4401
+            var editor = tinyMCE.get(elementId);
+            var placeholder = "tiny_mce_marker_" + Math.random().toString().replace(/\./g, "");
+            editor.selection.setContent(placeholder);
+            editor.setContent(editor.getContent().replace(new RegExp(placeholder, "g"), () => text));
         } else {
             insertText(document.getElementById(elementId), text);
         }

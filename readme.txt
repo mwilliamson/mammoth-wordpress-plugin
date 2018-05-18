@@ -2,7 +2,7 @@
 Contributors: michaelwilliamson
 Tags: docx, html, word, office, paste
 Requires at least: 4.0
-Tested up to: 4.9.4
+Tested up to: 4.9.6
 Stable tag: 1.9.0
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
@@ -48,6 +48,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
+
+= 1.10.0 =
+
+* Add workaround for a bug in tinyMCE in WordPress 4.9.6.
 
 = 1.9.0 =
 
