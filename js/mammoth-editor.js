@@ -177,7 +177,9 @@ function setUpMammoth() {
             var editor = tinyMCE.get(elementId);
             var placeholder = "tiny_mce_marker_" + Math.random().toString().replace(/\./g, "");
             editor.selection.setContent(placeholder);
-            editor.setContent(editor.getContent().replace(new RegExp(placeholder, "g"), () => text));
+            editor.setContent(editor.getContent().replace(new RegExp(placeholder, "g"), function() {
+                return text;
+            }));
         } else {
             insertText(document.getElementById(elementId), text);
         }

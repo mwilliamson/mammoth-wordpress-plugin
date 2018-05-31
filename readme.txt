@@ -49,6 +49,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.11.0 =
+
+* Fix IE11 support.
+
 = 1.10.0 =
 
 * Add workaround for a bug in tinyMCE in WordPress 4.9.6.
