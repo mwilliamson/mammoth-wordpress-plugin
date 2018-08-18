@@ -1,8 +1,9 @@
 import os
 import contextlib
+import subprocess
 import time
 
-from nose.tools import istest, assert_equal
+import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -11,22 +12,22 @@ from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoAlertPresentException
 import requests
 
+from .util import docker_run, docker_container_mysql_name, docker_container_wordpress_name
+
 
 import logging
 selenium_logger = logging.getLogger('selenium.webdriver.remote.remote_connection')
 selenium_logger.setLevel(logging.WARNING)
 
 
-@istest
-def can_convert_simple_docx_to_html():
+def test_can_convert_simple_docx_to_html():
     with _add_new_post() as add_post_page:
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         assert_equal(add_post_page.docx_converter.read_raw_preview(), "<p>\n  Walking on imported air\n</p>")
         assert_equal(add_post_page.docx_converter.read_visual_preview(), "Walking on imported air")
 
 
-@istest
-def clicking_insert_button_inserts_raw_html_into_text_editor():
+def test_clicking_insert_button_inserts_raw_html_into_text_editor():
     with _add_new_post() as add_post_page:
         add_post_page.editor.select_text_tab()
         
@@ -36,8 +37,7 @@ def clicking_insert_button_inserts_raw_html_into_text_editor():
         assert_equal(add_post_page.editor.text(), "<p>\n  Walking on imported air\n</p>")
 
 
-@istest
-def clicking_insert_button_inserts_raw_html_into_visual_editor():
+def test_clicking_insert_button_inserts_raw_html_into_visual_editor():
     with _add_new_post() as add_post_page:
         add_post_page.editor.select_visual_tab()
         
@@ -51,8 +51,7 @@ def clicking_insert_button_inserts_raw_html_into_visual_editor():
         assert_equal(actual.lstrip("<p>").rstrip("</p>").strip(), "Walking on imported air")
 
 
-@istest
-def images_are_uploaded_as_part_of_post():
+def test_images_are_uploaded_as_part_of_post():
     with WordPressBrowser.start() as browser:
         browser.login()
         add_post_page = browser.add_new_post()
@@ -70,16 +69,14 @@ def images_are_uploaded_as_part_of_post():
         assert_equal(_read_test_data("tiny-picture.png", "rb"), image_response.content)
 
 
-@istest
-def can_set_default_options_with_object():
+def test_can_set_default_options_with_object():
     with _add_new_post() as add_post_page:
         add_post_page.inject_javascript("window.MAMMOTH_OPTIONS = {styleMap: 'p => h1'};")
         add_post_page.docx_converter.upload(_test_data_path("single-paragraph.docx"))
         assert_equal(add_post_page.docx_converter.read_raw_preview(), "<h1>Walking on imported air</h1>")
 
 
-@istest
-def can_set_default_options_with_function_returning_object():
+def test_can_set_default_options_with_function_returning_object():
     with _add_new_post() as add_post_page:
         javascript = """
             function MAMMOTH_OPTIONS(mammoth) {
@@ -150,7 +147,7 @@ loginElement.select = function() { };
         return self._driver.get(self._url(path))
     
     def _url(self, path):
-        return "http://localhost:54713/{0}".format(path.lstrip("/"))
+        return "http://localhost:{0}/{1}".format(_port, path.lstrip("/"))
         
     def __enter__(self):
         return self
@@ -276,3 +273,49 @@ def _wait_for_element_visible(driver, id):
 def _wait_for_element_not_visible(driver, id):
     not_visible = expected_conditions.invisibility_of_element_located((By.ID, id))
     return WebDriverWait(driver, 10).until(not_visible)
+
+
+def assert_equal(actual, expected):
+    assert actual == expected
+
+
+_port = 54713
+
+
+@pytest.fixture(autouse=True, params=[False, True], scope="module")
+def _start_wordpress(request):
+    with docker_run(
+        name=docker_container_wordpress_name,
+        image="mammoth-wordpress-plugin",
+        ports={_port: 80},
+        links={docker_container_mysql_name: "mysql"},
+    ):
+        import time
+        time.sleep(2)
+        
+        _wp([
+            "core", "install",
+            "--url=http://localhost:{}/".format(_port),
+            "--title='Development WordPress site'",
+            "--admin_user=admin",
+            "--admin_email=admin@example.com",
+            "--admin_password=password1",
+        ])
+        plugin_src = os.path.join(os.path.dirname(__file__), "../mammoth-docx-converter")
+        subprocess.check_call([
+            "docker", "cp", plugin_src, "{}:/var/www/html/wp-content/plugins/mammoth-docx-converter".format(docker_container_wordpress_name),
+        ])
+        _wp(["plugin", "deactivate", "--all"])
+        if request.param:
+            _wp(["plugin", "install", "ckeditor-for-wordpress"])
+            _wp(["plugin", "activate", "ckeditor-for-wordpress"])
+        _wp(["plugin", "activate", "mammoth-docx-converter"])
+        
+        yield
+
+
+def _wp(command):
+    subprocess.check_call([
+        "docker", "exec", docker_container_wordpress_name,
+        "wp",
+    ] + command + ["--allow-root"])

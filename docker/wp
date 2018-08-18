@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+exec php /opt/wp-cli/wp-cli.phar --path='/var/www/html' "$@"
