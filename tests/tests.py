@@ -1,6 +1,5 @@
 import os
 import contextlib
-import subprocess
 import time
 
 import pytest
@@ -12,7 +11,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoAlertPresentException
 import requests
 
-from .util import docker_run, docker_container_mysql_name, docker_container_wordpress_name
+from .start_wordpress import start_wordpress
+from .util import wordpress_port as _port
 
 
 import logging
@@ -279,43 +279,7 @@ def assert_equal(actual, expected):
     assert actual == expected
 
 
-_port = 54713
-
-
-@pytest.fixture(autouse=True, params=[False, True], scope="module")
+@pytest.fixture(autouse=True, params=[[], ["ckeditor-for-wordpress"]], scope="module")
 def _start_wordpress(request):
-    with docker_run(
-        name=docker_container_wordpress_name,
-        image="mammoth-wordpress-plugin",
-        ports={_port: 80},
-        links={docker_container_mysql_name: "mysql"},
-    ):
-        import time
-        time.sleep(2)
-        
-        _wp([
-            "core", "install",
-            "--url=http://localhost:{}/".format(_port),
-            "--title='Development WordPress site'",
-            "--admin_user=admin",
-            "--admin_email=admin@example.com",
-            "--admin_password=password1",
-        ])
-        plugin_src = os.path.join(os.path.dirname(__file__), "../mammoth-docx-converter")
-        subprocess.check_call([
-            "docker", "cp", plugin_src, "{}:/var/www/html/wp-content/plugins/mammoth-docx-converter".format(docker_container_wordpress_name),
-        ])
-        _wp(["plugin", "deactivate", "--all"])
-        if request.param:
-            _wp(["plugin", "install", "ckeditor-for-wordpress"])
-            _wp(["plugin", "activate", "ckeditor-for-wordpress"])
-        _wp(["plugin", "activate", "mammoth-docx-converter"])
-        
+    with start_wordpress(plugins=request.param, port=_port):
         yield
-
-
-def _wp(command):
-    subprocess.check_call([
-        "docker", "exec", docker_container_wordpress_name,
-        "wp",
-    ] + command + ["--allow-root"])

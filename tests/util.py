@@ -6,6 +6,7 @@ import time
 docker_container_mysql_name = "mammoth-wordpress-plugin-test-mysql"
 docker_container_wordpress_name = "mammoth-wordpress-plugin-test-wordpress"
 mysql_password = "password1"
+wordpress_port = 54713
     
 
 @contextlib.contextmanager
