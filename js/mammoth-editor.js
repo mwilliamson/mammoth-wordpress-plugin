@@ -187,6 +187,7 @@ function setUpMammoth() {
     }
     
     function showError(error) {
+        console.error(error);
         if (error.message) {
             error = error.message;
         }
