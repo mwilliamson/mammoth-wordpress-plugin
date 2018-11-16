@@ -1,6 +1,7 @@
 /_build
 /_downloads
 /_wordpress
+/tests/_mysql-data
 /tests/_virtualenv
 *.pyc
 /mammoth-docx-converter/mammoth-editor.js
