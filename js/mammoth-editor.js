@@ -172,6 +172,9 @@ function setUpMammoth() {
         // Therefore, we check for CKEditor first
         if (window.CKEDITOR && CKEDITOR.instances[elementId]) {
             CKEDITOR.instances[elementId].insertHtml(text);
+        } else if (window.wp && wp.blocks && false) {
+            var block = wp.blocks.createBlock("core/freeform", {content: text});
+            wp.data.dispatch("core/editor").insertBlocks(block);
         } else if (window.tinyMCE && tinyMCE.get(elementId) && !tinyMCE.get(elementId).isHidden()) {
             // This reimplements mceInsertRawHTML due to a bug in tinyMCE:
             // https://github.com/tinymce/tinymce/issues/4401
