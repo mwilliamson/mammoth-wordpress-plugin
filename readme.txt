@@ -49,6 +49,12 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.12.0 =
+
+* Add basic Gutenberg support.
+
+* Update mammoth.js to 1.4.7.
+
 = 1.11.0 =
 
 * Fix IE11 support.
