@@ -91,7 +91,8 @@ function setUpMammoth() {
                 insertTextIntoEditor(result.value);
                 showMessages(result.messages);
                 parentElement.classList.remove("status-inserting");
-            }, showError);
+            })
+            .then(null, showError);
     }
     
     var slugCharmap = jQuery.extend({}, slug.charmap, {".": "-", "\\": "-", "/": "-"});
