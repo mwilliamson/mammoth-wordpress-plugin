@@ -1,4 +1,4 @@
-.PHONY: test setup mammoth-docx-converter/mammoth-editor.js
+.PHONY: test setup mammoth-docx-converter/mammoth-editor.js docker-wordpress
 
 setup: mammoth-docx-converter/mammoth-editor.js mammoth-docx-converter/readme.txt
 
@@ -15,3 +15,6 @@ tests/_virtualenv/bin/python:
 test: setup tests/_virtualenv/bin/python
 	tests/_virtualenv/bin/pip install -r tests/requirements.txt
 	tests/_virtualenv/bin/pytest tests/tests.py
+
+docker-wordpress:
+	docker build docker -t mammoth-wordpress-plugin
