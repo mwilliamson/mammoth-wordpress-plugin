@@ -3,7 +3,7 @@
 Plugin Name: Mammoth .docx converter
 Plugin URI: https://github.com/mwilliamson/mammoth-wordpress-plugin
 Description: Mammoth converts semantically marked up .docx documents to simple and clean HTML.
-Version: 1.12.0
+Version: 1.13.0
 Author: Michael Williamson
 Author URI: http://mike.zwobble.org/
 License: BSD 2-clause
@@ -16,7 +16,7 @@ add_action( 'admin_enqueue_scripts', 'mammoth_admin_style' );
 
 function mammoth_add_post_meta_box() {
     $post_types = get_post_types();
-    
+
     foreach ($post_types as $post_type) {
         if (post_type_supports($post_type, 'editor')) {
             add_meta_box(
@@ -43,7 +43,7 @@ function mammoth_render_editor_box( $post ) {
                 <input type="file" id="mammoth-docx-upload" />
             </label>
         </div>
-    
+
         <div id="mammoth-docx-loading">
             Loading...
         </div>
@@ -56,7 +56,7 @@ function mammoth_render_editor_box( $post ) {
             Error while attempting to convert file:
             <span id="mammoth-docx-error-message"></span>
         </p>
-    
+
         <div class="mammoth-docx-preview">
             <input type="hidden"
                 id="mammoth-docx-upload-image-nonce"
@@ -70,7 +70,7 @@ function mammoth_render_editor_box( $post ) {
                 id="mammoth-docx-admin-ajax-href"
                 value="<?php echo get_site_url( null, "wp-admin/admin-ajax.php", "admin" ); ?>"
                 />
-            
+
             <p><input type="button" id="mammoth-docx-insert" value="Insert into editor" /></p>
             <div class="mammoth-tabs">
                 <div class="tab">
@@ -93,7 +93,7 @@ function mammoth_render_editor_box( $post ) {
                 </div>
             </div>
         </div>
-    
+
     </div>
 <?php
 }
@@ -106,7 +106,7 @@ function mammoth_load_javascript() {
 
 function mammoth_load_script( $name ) {
     $url = plugins_url( 'mammoth-docx-converter/' . $name . '.js' );
-    echo '<script src="'. $url . '?v=1.12.0"></script>';
+    echo '<script src="'. $url . '?v=1.13.0"></script>';
 }
 
 function mammoth_editor_stylesheets_list( ) {
