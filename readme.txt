@@ -22,7 +22,7 @@ The following features are currently supported:
 * Lists.
 
 * Tables. The formatting of the table itself, such as borders, is currently ignored, but the formatting of the text is treated the same as in the rest of the document.
-  
+
 * Footnotes and endnotes.
 
 * Images.
@@ -32,7 +32,7 @@ The following features are currently supported:
 * Links.
 
 * Text boxes. The contents of the text box are treated as a separate paragraph that appears after the paragraph containing the text box.
-  
+
 = Embedded style maps =
 
 By default, Mammoth maps some common .docx styles to HTML elements. For instance, a paragraph with the style name `Heading 1` is converted to a `h1` element. If you have a document with your own custom styles, you can use an embedded style map to tell Mammoth how those styles should be mapped. For instance, you could convert paragraphs with the style named `WarningHeading` to `h1` elements with `class="warning"` with the style mapping:
@@ -48,6 +48,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
+
+= 1.13.0 =
+
+* Update mammoth.js to 1.4.8.
 
 = 1.12.0 =
 
