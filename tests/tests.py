@@ -279,7 +279,15 @@ def assert_equal(actual, expected):
     assert actual == expected
 
 
-@pytest.fixture(autouse=True, params=[["disable-gutenberg"], ["ckeditor-for-wordpress", "disable-gutenberg"]], scope="module")
+@pytest.fixture(
+    autouse=True,
+    params=[
+        ["classic-editor"],
+        ["disable-gutenberg"],
+        ["ckeditor-for-wordpress", "disable-gutenberg"],
+    ],
+    scope="module",
+)
 def _start_wordpress(request):
     with start_wordpress(plugins=request.param, port=_port):
         yield
