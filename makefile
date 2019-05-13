@@ -11,10 +11,16 @@ mammoth-docx-converter/readme.txt: readme.txt
 
 tests/_virtualenv/bin/python:
 	virtualenv tests/_virtualenv
-	
+
 test: setup tests/_virtualenv/bin/python
 	tests/_virtualenv/bin/pip install -r tests/requirements.txt
 	tests/_virtualenv/bin/pytest tests/tests.py
 
 docker-wordpress:
 	docker build docker -t mammoth-wordpress-plugin
+
+start-mysql:
+	tests/_virtualenv/bin/python -m tests.start_mysql
+
+start-wordpress:
+	tests/_virtualenv/bin/python -m tests.start_wordpress
