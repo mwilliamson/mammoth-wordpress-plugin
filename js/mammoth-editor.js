@@ -10,12 +10,12 @@ function setUpMammoth() {
     var latestDocumentArrayBuffer = null;
     var uploadElement = document.getElementById("mammoth-docx-upload");
     var visualPreviewElement = document.getElementById("mammoth-docx-visual-preview");
-    
+
     uploadElement.addEventListener('change', function(event) {
         parentElement.className = "status-loading";
         handleFileSelect(event);
     }, false);
-    
+
     function convertToHtml(input, options) {
         var fullOptions = {prettyPrint: true};
         for (var key in options) {
@@ -30,7 +30,7 @@ function setUpMammoth() {
         }
         return mammoth.convertToHtml(input, fullOptions);
     }
-    
+
     function handleFileSelect(event) {
         readFileInputEventAsArrayBuffer(event, function(arrayBuffer) {
             latestDocumentArrayBuffer = arrayBuffer;
@@ -41,23 +41,23 @@ function setUpMammoth() {
                 .then(null, showError);
         });
     }
-    
+
     function readFileInputEventAsArrayBuffer(event, callback) {
         var file = event.target.files[0];
 
         var reader = new FileReader();
-        
+
         reader.onload = function(loadEvent) {
             var arrayBuffer = loadEvent.target.result;
             callback(arrayBuffer);
         };
-        
+
         reader.readAsArrayBuffer(file);
     }
-    
+
     document.getElementById("mammoth-docx-insert")
         .addEventListener("click", insertIntoEditor, false);
-    
+
     function insertIntoEditor() {
         var postId = document.getElementById("post_ID").value;
         var options = {
@@ -94,19 +94,19 @@ function setUpMammoth() {
             })
             .then(null, showError);
     }
-    
+
     var slugCharmap = jQuery.extend({}, slug.charmap, {".": "-", "\\": "-", "/": "-"});
     var slugOptions = {
         mode: "rfc3986",
         charmap: slugCharmap
     };
-    
+
     function generateFilename(options) {
         var name = options.altText ? slug(options.altText.slice(0, 50), slugOptions) : "word-image";
         var extension = options.contentType.split("/")[1];
         return name + "." + extension;
     }
-    
+
     function uploadImage(options) {
         var filename = options.filename;
         var contentType = options.contentType;
@@ -139,11 +139,11 @@ function setUpMammoth() {
             return rejectImage(value.statusText);
         });
     }
-    
+
     function rejectImage(message) {
         return reject(new Error("Image upload HTTP request failed: " + message));
     }
-    
+
     function reject(error) {
         var deferred = jQuery.Deferred();
         deferred.reject(error);
@@ -188,7 +188,7 @@ function setUpMammoth() {
             insertText(document.getElementById(elementId), text);
         }
     }
-    
+
     function showError(error) {
         console.error(error);
         if (error.message) {
@@ -197,14 +197,14 @@ function setUpMammoth() {
         parentElement.className = "status-error";
         document.getElementById("mammoth-docx-error-message").innerHTML = escapeHtml(error);
     }
-    
+
     function showResult(result) {
         parentElement.className = "status-loaded";
-        
+
         showPreview(result.value);
         showMessages(result.messages);
     }
-    
+
     function showPreview(value) {
         var visualPreviewDocument = visualPreviewElement.contentDocument;
         setUpVisualPreviewStylesheets();
@@ -215,7 +215,7 @@ function setUpMammoth() {
         var htmlWithoutImageData = value.replace(/(<img\s[^>]*)src="data:[^"]*"([^>]* \/>)/g, '$1src="path/to/image"$2');
         document.getElementById("mammoth-docx-raw-preview").innerHTML = escapeHtml(htmlWithoutImageData);
     }
-    
+
     function showMessages(messages) {
         if (messages.length) {
             var messageElements = messages
@@ -226,7 +226,7 @@ function setUpMammoth() {
                     return "<li>" + capitalise(message.type) + ": " + escapeHtml(message.message) + "</li>";
                 })
                 .join("");
-            
+
             document.getElementById("mammoth-docx-messages").innerHTML =
                 "<ul>" + messageElements + "</ul>";
         } else {
@@ -237,11 +237,11 @@ function setUpMammoth() {
 
     function insertText(element, text) {
         var startPosition = element.selectionStart;
-        element.value = 
+        element.value =
             element.value.substring(0, startPosition) +
             text +
             element.value.substring(element.selectionEnd);
-        
+
         var newStartPosition = startPosition + text.length;
         element.selectionStart = newStartPosition;
         element.selectionEnd = newStartPosition;
@@ -254,11 +254,11 @@ function setUpMammoth() {
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
     }
-    
+
     function capitalise(string) {
         return string.charAt(0).toUpperCase() + string.substring(1);
     }
-    
+
     var visualStylesheetsAlreadySetUp = false;
     function setUpVisualPreviewStylesheets() {
         if (visualStylesheetsAlreadySetUp) {
@@ -266,6 +266,7 @@ function setUpMammoth() {
         }
         visualStylesheetsAlreadySetUp = true;
         var visualPreviewDocument = visualPreviewElement.contentDocument;
+        visualPreviewDocument.body.style.backgroundColor = "white";
         var stylesheets = visualPreviewElement.getAttribute("data-stylesheets").split(",");
         stylesheets.forEach(function(stylesheet) {
             var element = document.createElement("link");
@@ -275,7 +276,7 @@ function setUpMammoth() {
             visualPreviewDocument.head.appendChild(element);
         });
     }
-    
+
     function toArrayBuffer(buffer) {
         var arrayBuffer = new ArrayBuffer(buffer.length);
         var view = new Uint8Array(arrayBuffer);
@@ -284,21 +285,21 @@ function setUpMammoth() {
         }
         return arrayBuffer;
     }
-    
+
     function PolyfillFormData() {
         this.boundary = "-----------------------------" + Math.floor(Math.random() * 0x100000000);
         this._fields = [];
         this._files = [];
     }
-    
+
     PolyfillFormData.prototype.append = function(key, value) {
         this._fields.push({key: key, value: value});
     };
-    
+
     PolyfillFormData.prototype.appendFile = function(key, file) {
         this._files.push({key: key, file: file});
     };
-    
+
     PolyfillFormData.prototype.body = function() {
         var boundary = this.boundary;
         var body = "";
@@ -316,7 +317,7 @@ function setUpMammoth() {
             body += field.file.binary + "\r\n";
         });
         body += "--" + boundary +"--\r\n";
-        
+
         var nBytes = body.length
         var ui8Data = new Uint8Array(nBytes);
         for (var nIdx = 0; nIdx < nBytes; nIdx++) {
@@ -324,6 +325,6 @@ function setUpMammoth() {
         }
         return ui8Data;
     };
-    
+
 };
 
