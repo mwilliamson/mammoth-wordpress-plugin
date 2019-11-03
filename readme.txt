@@ -49,6 +49,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.15.0 =
+
+* Update mammoth.js to 1.4.9.
+
 = 1.14.0 =
 
 * Improve support when X-Frame-Options is set to "deny".
