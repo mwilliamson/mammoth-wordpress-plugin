@@ -1,4 +1,4 @@
-FROM wordpress:5.2.4-php7.2-apache
+FROM wordpress:5.4.2-php7.2-apache
 
 RUN mkdir -p /opt/wp-cli && \
     cd /opt/wp-cli && \
