@@ -27,20 +27,37 @@ def start_wordpress(port, plugins=None):
             "--admin_email=admin@example.com",
             "--admin_password=password1",
         ])
-        _wp(["plugin", "deactivate", "--all"])
-        _wp(["plugin", "uninstall", "--all"])
-        plugin_src = os.path.join(os.path.dirname(__file__), "../mammoth-docx-converter")
-        subprocess.check_call([
-            "docker", "cp", plugin_src, "{}:/var/www/html/wp-content/plugins/mammoth-docx-converter".format(docker_container_wordpress_name),
-        ])
-        for plugin in plugins:
-            _wp(["plugin", "install", plugin])
-            _wp(["plugin", "activate", plugin])
-        _wp(["plugin", "activate", "mammoth-docx-converter"])
+
+        _set_up_plugins(plugins)
 
         time.sleep(2)
 
         yield
+
+        _tear_down_plugins()
+
+
+_mammoth_plugin_name = "mammoth-docx-converter"
+
+
+def _set_up_plugins(plugins):
+    _tear_down_plugins()
+
+    plugin_src = os.path.join(os.path.dirname(__file__), "../mammoth-docx-converter")
+    subprocess.check_call([
+        "docker", "cp", plugin_src, "{}:/var/www/html/wp-content/plugins/mammoth-docx-converter".format(docker_container_wordpress_name),
+    ])
+
+    for plugin in plugins:
+        _wp(["plugin", "install", plugin])
+        _wp(["plugin", "activate", plugin])
+
+    _wp(["plugin", "activate", _mammoth_plugin_name])
+
+
+def _tear_down_plugins():
+    _wp(["plugin", "deactivate", "--all"])
+    _wp(["plugin", "uninstall", "--all"])
 
 
 def _wp(command):
