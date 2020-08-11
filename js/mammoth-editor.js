@@ -172,7 +172,13 @@ function setUpMammoth() {
         // Therefore, we check for CKEditor first
         if (window.CKEDITOR && CKEDITOR.instances[elementId]) {
             CKEDITOR.instances[elementId].insertHtml(text);
-        } else if (window.wp && wp.blocks) {
+        } else if (document.body.classList.contains("block-editor-page")) {
+            // Inspecting the class list is the suggested way of detecting whether
+            // Gutenberg is active, from the GitHub issue:
+            //     https://github.com/WordPress/gutenberg/issues/12200
+            // This code previously checked if wp.blocks was defined, but this
+            // seems to be unreliable when some plugins are installed, such as
+            // Yoast.
             var block = wp.blocks.createBlock("core/freeform", {content: text});
             wp.data.dispatch("core/editor").insertBlocks(block);
         } else if (window.tinyMCE && tinyMCE.get(elementId) && !tinyMCE.get(elementId).isHidden()) {

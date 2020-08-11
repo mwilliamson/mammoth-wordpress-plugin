@@ -49,6 +49,10 @@ make sure that it's selected by taking a look at the "Screen Options" for adding
 
 == Changelog ==
 
+= 1.16.0 =
+
+* Improve support for detecting when the Gutenberg editor is active. This should fix compatibility with some other plugins such as Yoast SEO when the Gutenberg editor is disabled.
+
 = 1.15.0 =
 
 * Update mammoth.js to 1.4.9.

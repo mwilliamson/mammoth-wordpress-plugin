@@ -283,6 +283,7 @@ def assert_equal(actual, expected):
     autouse=True,
     params=[
         ["classic-editor"],
+        ["classic-editor", "wordpress-seo"],
         ["disable-gutenberg"],
         ["ckeditor-for-wordpress", "disable-gutenberg"],
     ],
