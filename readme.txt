@@ -45,8 +45,7 @@ By default, Mammoth maps some common .docx styles to HTML elements. For instance
 
 == Installation ==
 
-Install the plugin in the usual way, and you should be able to use the Mammoth .docx converter when adding a post. If you can't see the meta box,
-make sure that it's selected by taking a look at the "Screen Options" for adding a post.
+Install the plugin in the usual way, and you should be able to use the Mammoth .docx converter when adding a post. If you can't see the meta box, make sure that it's selected by taking a look at the "Screen Options" for adding a post.
 
 == Changelog ==
 
