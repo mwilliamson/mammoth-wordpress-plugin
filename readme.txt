@@ -49,6 +49,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 
 == Changelog ==
 
+= 1.17.0 =
+
+* Update mammoth.js to 1.4.13. This includes support for soft hyphens and improved underline support.
+
 = 1.16.0 =
 
 * Improve support for detecting when the Gutenberg editor is active. This should fix compatibility with some other plugins such as Yoast SEO when the Gutenberg editor is disabled.
