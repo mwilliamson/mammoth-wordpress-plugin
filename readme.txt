@@ -3,7 +3,7 @@ Contributors: michaelwilliamson
 Donate link: https://liberapay.com/mwilliamson/donate
 Tags: docx, html, word, office, paste
 Requires at least: 4.0
-Tested up to: 5.4.2
+Tested up to: 5.5.1
 Stable tag: 1.16.0
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
