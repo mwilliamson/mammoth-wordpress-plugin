@@ -3,7 +3,7 @@ import os
 import subprocess
 import time
 
-from .util import docker_run, docker_container_wordpress_name, docker_container_mysql_name, wordpress_port
+from .util import docker_run, docker_container_wordpress_name, docker_container_mysql_name, mysql_password, wordpress_port
 
 
 @contextlib.contextmanager
@@ -11,11 +11,19 @@ def start_wordpress(port, plugins=None):
     if plugins is None:
         plugins = []
 
+    mysql_link_name = "mysql"
+
     with docker_run(
         name=docker_container_wordpress_name,
         image="mammoth-wordpress-plugin",
         ports={port: 80},
-        links={docker_container_mysql_name: "mysql"},
+        links={docker_container_mysql_name: mysql_link_name},
+        env={
+            "WORDPRESS_DB_HOST": mysql_link_name,
+            "WORDPRESS_DB_USER": "root",
+            "WORDPRESS_DB_PASSWORD": mysql_password,
+            "WORDPRESS_DB_NAME": "wordpress",
+        },
     ):
         time.sleep(2)
 
