@@ -285,7 +285,6 @@ def assert_equal(actual, expected):
         ["classic-editor"],
         ["classic-editor", "wordpress-seo"],
         ["disable-gutenberg"],
-        ["ckeditor-for-wordpress", "disable-gutenberg"],
     ],
     scope="module",
 )
