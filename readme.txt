@@ -49,6 +49,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 
 == Changelog ==
 
+= 1.18.0 =
+
+* Update mammoth.js to 1.4.17. This includes better support for numbering, and conversion of symbols to their corresponding Unicode characters.
+
 = 1.17.0 =
 
 * Update mammoth.js to 1.4.13. This includes support for soft hyphens and improved underline support.
