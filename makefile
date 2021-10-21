@@ -24,3 +24,8 @@ start-mysql:
 
 start-wordpress:
 	tests/_virtualenv/bin/python -m tests.start_wordpress
+
+.PHONY: examples/options-plugin/mammoth-options.zip
+
+examples/options-plugin/mammoth-options.zip:
+	cd examples/options-plugin; zip -r mammoth-options.zip mammoth-options
