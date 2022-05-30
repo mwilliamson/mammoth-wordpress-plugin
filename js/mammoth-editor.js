@@ -101,9 +101,9 @@ function setUpMammoth() {
         charmap: slugCharmap
     };
 
-    function generateFilename(options) {
-        var name = options.altText ? slug(options.altText.slice(0, 50), slugOptions) : "word-image";
-        var extension = options.contentType.split("/")[1];
+    function generateFilename(element) {
+        var name = element.altText ? slug(element.altText.slice(0, 50), slugOptions) : "word-image";
+        var extension = element.contentType.split("/")[1];
         return name + "." + extension;
     }
 
