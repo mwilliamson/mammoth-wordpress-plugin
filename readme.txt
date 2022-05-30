@@ -62,6 +62,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 
 == Changelog ==
 
+= 1.20.0 =
+
+* Update mammoth.js to 1.4.21. This includes improved underline support, and handling of errors when image data cannot be found.
+
 = 1.19.0 =
 
 * Update mammoth.js to 1.4.18. This includes better support for internal hyperlinks.
