@@ -60,10 +60,12 @@ function setUpMammoth() {
 
     function insertIntoEditor() {
         var postId = document.getElementById("post_ID").value;
+        var lastImageNumber = 0;
         var options = {
             convertImage: mammoth.images.inline(function(element) {
+                var imageNumber = ++lastImageNumber;
                 return element.read("binary").then(function(imageBinaryString) {
-                    var filename = generateFilename(element);
+                    var filename = generateFilename(element, {postId: postId, imageNumber: imageNumber});
                     return uploadImage({
                         filename: filename,
                         contentType: element.contentType,
@@ -101,8 +103,8 @@ function setUpMammoth() {
         charmap: slugCharmap
     };
 
-    function generateFilename(element) {
-        var name = element.altText ? slug(element.altText.slice(0, 50), slugOptions) : "word-image";
+    function generateFilename(element, options) {
+        var name = element.altText ? slug(element.altText.slice(0, 50), slugOptions) : "word-image-" + options.postId + "-" + options.imageNumber;
         var extension = element.contentType.split("/")[1];
         return name + "." + extension;
     }
