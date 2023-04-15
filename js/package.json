@@ -1,7 +1,7 @@
 {
   "name": "mammoth-wordpress-plugin",
   "devDependencies": {
-    "browserify": "^3.33.0"
+    "browserify": "^17.0.0"
   },
   "dependencies": {
     "mammoth": "^1.4.21"
