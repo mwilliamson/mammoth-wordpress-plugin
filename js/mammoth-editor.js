@@ -64,12 +64,12 @@ function setUpMammoth() {
         var options = {
             convertImage: mammoth.images.inline(function(element) {
                 var imageNumber = ++lastImageNumber;
-                return element.readAsArrayBuffer().then(function(imageBinaryString) {
+                return element.readAsArrayBuffer().then(function(imageArrayBuffer) {
                     var filename = generateFilename(element, {postId: postId, imageNumber: imageNumber});
                     return uploadImage({
                         filename: filename,
                         contentType: element.contentType,
-                        binary: imageBinaryString
+                        arrayBuffer: imageArrayBuffer
                     });
                 }).then(function(uploadResult) {
                     if (element.altText) {
@@ -112,14 +112,14 @@ function setUpMammoth() {
     function uploadImage(options) {
         var filename = options.filename;
         var contentType = options.contentType;
-        var imageBinary = options.binary;
+        var imageArrayBuffer = options.arrayBuffer;
         var formData = new FormData();
         formData.append("name", filename);
         formData.append("action", "upload-attachment");
         formData.append("post_id", document.getElementById("post_ID").value);
         var nonce = document.getElementById("mammoth-docx-upload-image-nonce").value;
         formData.append("_wpnonce", nonce);
-        var imageBlob = new Blob([imageBinary], {type: contentType});
+        var imageBlob = new Blob([imageArrayBuffer], {type: contentType});
         formData.append("async-upload", imageBlob, filename);
         return fetch(document.getElementById("mammoth-docx-upload-image-href").value, {
             method: "POST",
