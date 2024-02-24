@@ -62,6 +62,10 @@ Install the plugin in the usual way, and you should be able to use the Mammoth .
 
 == Changelog ==
 
+= 1.21.0 =
+
+* Update mammoth.js to 1.7.0. This includes support for documents in the strict format.
+
 = 1.20.0 =
 
 * Update mammoth.js to 1.4.21. This includes improved underline support and image handling.
