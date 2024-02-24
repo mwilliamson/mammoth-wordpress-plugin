@@ -50,7 +50,7 @@ Mammoth can be configured by writing a separate plugin. For instance, [this exam
 
 As a WordPress plugin, Mammoth uses the JavaScript library mammoth.js to convert documents. Mammoth will use the JavaScript global `MAMMOTH_OPTIONS` whenever calling mammoth.js, which allows for some customisation. `MAMMOTH_OPTIONS` should be defined as a function that returns an options object. This options object will then be passed in as the `options` argument to `convertToHtml`. The [mammoth.js docs](https://github.com/mwilliamson/mammoth.js) describe the various options available.
 
-`MAMMOTH_OPTIONS` will be called with `mammoth` as the first argument. This can be useful if you need to use a function from mammoth.js, such as `mammoth.transforms.getDescendantsOfType`.
+The global `MAMMOTH_OPTIONS` will be called with `mammoth` as the first argument. This can be useful if you need to use a function from mammoth.js, such as `mammoth.transforms.getDescendantsOfType`.
 
 = FAQs =
 
