@@ -5,7 +5,7 @@ Plugin URI: https://github.com/mwilliamson/mammoth-wordpress-plugin
 Description: Mammoth converts semantically marked up .docx documents to simple and clean HTML.
 Version: 1.21.0
 Author: Michael Williamson
-Author URI: http://mike.zwobble.org/
+Author URI: https://mike.zwobble.org/
 License: BSD 2-clause
 */
 

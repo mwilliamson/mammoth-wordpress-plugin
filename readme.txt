@@ -6,7 +6,7 @@ Requires at least: 4.0
 Tested up to: 6.9.4
 Stable tag: 1.21.0
 License: BSD 2-clause
-License URI: http://opensource.org/licenses/BSD-2-Clause
+License URI: https://opensource.org/licenses/BSD-2-Clause
 
 Mammoth converts semantically marked up .docx documents to simple and clean HTML, allowing pasting from Word and Google Docs without the usual mess.
 
@@ -40,7 +40,7 @@ By default, Mammoth maps some common .docx styles to HTML elements. For instance
 
     p[style-name='WarningHeading'] => h1.warning:fresh
 
-[An online tool](http://mike.zwobble.org/projects/mammoth/embed-style-map/) can be used to embed style maps into an existing document. Details of [how to write style maps can be found on the mammoth.js documentation](https://github.com/mwilliamson/mammoth.js#writing-style-maps).
+[An online tool](https://mike.zwobble.org/projects/mammoth/embed-style-map/) can be used to embed style maps into an existing document. Details of [how to write style maps can be found on the mammoth.js documentation](https://github.com/mwilliamson/mammoth.js#writing-style-maps).
 
 A style map to be used for all documents can be set by configuring Mammoth (see below).
 

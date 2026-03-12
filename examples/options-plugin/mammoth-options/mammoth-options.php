@@ -3,7 +3,7 @@
 Plugin Name: Custom Mammoth options
 Version: 1.0.0
 Author: Michael Williamson
-Author URI: http://mike.zwobble.org/
+Author URI: https://mike.zwobble.org/
 License: BSD 2-clause
 */
 
