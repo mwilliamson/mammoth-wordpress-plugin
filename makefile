@@ -10,7 +10,7 @@ mammoth-docx-converter/readme.txt: readme.txt
 	cp readme.txt $@
 
 tests/_virtualenv/bin/python:
-	virtualenv tests/_virtualenv
+	python3 -m venv tests/_virtualenv
 
 test: setup tests/_virtualenv/bin/python
 	tests/_virtualenv/bin/pip install -r tests/requirements.txt

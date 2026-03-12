@@ -5,7 +5,6 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import NoAlertPresentException
@@ -109,12 +108,7 @@ def _add_new_post():
 class WordPressBrowser(object):
     @staticmethod
     def start():
-        firefox_path = os.environ.get("FIREFOX_BIN")
-        if firefox_path is None:
-            firefox_binary = None
-        else:
-            firefox_binary = FirefoxBinary(firefox_path)
-        return WordPressBrowser(webdriver.Firefox(firefox_binary=firefox_binary))
+        return WordPressBrowser(webdriver.Firefox())
 
     def __init__(self, driver):
         self._driver = driver
@@ -127,9 +121,9 @@ var loginElement = document.getElementById('user_login');
 loginElement.focus = function() { };
 loginElement.select = function() { };
 """)
-        self._driver.find_element_by_id("user_login").send_keys("admin")
-        self._driver.find_element_by_id("user_pass").send_keys("password1")
-        self._driver.find_element_by_id("user_pass").submit()
+        self._driver.find_element(By.ID, "user_login").send_keys("admin")
+        self._driver.find_element(By.ID, "user_pass").send_keys("password1")
+        self._driver.find_element(By.ID, "user_pass").submit()
         # TODO: remove sleep
         time.sleep(1)
 
@@ -171,20 +165,20 @@ class AddNewPostPage(object):
     def trash(self):
         self._scroll_to_top()
         # We have to save the post before we can delete it
-        self._driver.find_element_by_id("save-post").click()
-        self._driver.find_element_by_css_selector("#delete-action a").click()
+        self._driver.find_element(By.ID, "save-post").click()
+        self._driver.find_element(By.CSS_SELECTOR, "#delete-action a").click()
         try:
-            self._driver.switch_to_alert().accept()
+            self._driver.switch_to.alert().accept()
         except NoAlertPresentException:
             pass
 
     def publish(self):
         self._scroll_to_top()
-        self._driver.find_element_by_id("publish").click()
+        self._driver.find_element(By.ID, "publish").click()
 
     def view_post(self):
         self._scroll_to_top()
-        self._driver.find_element_by_link_text("View post").click()
+        self._driver.find_element(By.LINK_TEXT, "View post").click()
         return ViewPostPage(self._driver)
 
     def _scroll_to_top(self):
@@ -208,22 +202,22 @@ class DocxConverter(object):
 
     def read_raw_preview(self):
         self._select_preview_tab("Raw HTML")
-        return self._driver.find_element_by_id("mammoth-docx-raw-preview").text
+        return self._driver.find_element(By.ID, "mammoth-docx-raw-preview").text
 
     def read_visual_preview(self):
         self._select_preview_tab("Visual")
         try:
-            self._driver.switch_to_frame(self._driver.find_element_by_id("mammoth-docx-visual-preview"))
-            return self._driver.find_element_by_css_selector("body").text
+            self._driver.switch_to.frame(self._driver.find_element(By.ID, "mammoth-docx-visual-preview"))
+            return self._driver.find_element(By.CSS_SELECTOR, "body").text
         finally:
-            self._driver.switch_to_default_content()
+            self._driver.switch_to.default_content()
 
     def _select_preview_tab(self, name):
-        preview_element = self._driver.find_element_by_class_name("mammoth-docx-preview")
-        preview_element.find_element_by_xpath(".//*[text() = '{0}']".format(name)).click()
+        preview_element = self._driver.find_element(By.CLASS_NAME, "mammoth-docx-preview")
+        preview_element.find_element(By.XPATH, ".//*[text() = '{0}']".format(name)).click()
 
     def insert_html(self):
-        self._driver.find_element_by_id("mammoth-docx-insert").click()
+        self._driver.find_element(By.ID, "mammoth-docx-insert").click()
 
 
 class ContentEditor(object):
@@ -231,15 +225,15 @@ class ContentEditor(object):
         self._driver = driver
 
     def select_text_tab(self):
-        self._driver.find_element_by_id("content-html").click()
+        self._driver.find_element(By.ID, "content-html").click()
         _wait_for_element_visible(self._driver, id="content")
 
     def select_visual_tab(self):
-        self._driver.find_element_by_id("content-tmce").click()
+        self._driver.find_element(By.ID, "content-tmce").click()
         _wait_for_element_visible(self._driver, id="wp-content-editor-container")
 
     def text(self):
-        return self._driver.find_element_by_id("content").get_attribute("value")
+        return self._driver.find_element(By.ID, "content").get_property("value")
 
     def wait_for_text(self, text):
         return WebDriverWait(self._driver, 10).until(lambda driver: text in self.text())
@@ -250,8 +244,8 @@ class ViewPostPage(object):
         self._driver = driver
 
     def find_body_element(self, css_selector):
-        body = self._driver.find_element_by_css_selector(".entry-content")
-        return body.find_element_by_css_selector(css_selector)
+        body = self._driver.find_element(By.CSS_SELECTOR, ".entry-content")
+        return body.find_element(By.CSS_SELECTOR, css_selector)
 
 
 def _test_data_path(path):
