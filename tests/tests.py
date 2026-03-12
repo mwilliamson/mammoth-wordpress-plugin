@@ -121,8 +121,8 @@ var loginElement = document.getElementById('user_login');
 loginElement.focus = function() { };
 loginElement.select = function() { };
 """)
-        self._driver.find_element(By.ID, "user_login").send_keys("admin")
-        self._driver.find_element(By.ID, "user_pass").send_keys("password1")
+        self._driver.find_element(By.ID, "user_login").send_keys(username)
+        self._driver.find_element(By.ID, "user_pass").send_keys(password)
         self._driver.find_element(By.ID, "user_pass").submit()
         # TODO: remove sleep
         time.sleep(1)
