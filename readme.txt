@@ -8,7 +8,7 @@ Stable tag: 1.21.0
 License: BSD 2-clause
 License URI: http://opensource.org/licenses/BSD-2-Clause
 
-Mammoth converts semantically marked up .docx documents to simple and clean HTML, allowing pasting from Word documents and Google Docs without the usual mess.
+Mammoth converts semantically marked up .docx documents to simple and clean HTML, allowing pasting from Word and Google Docs without the usual mess.
 
 == Description ==
 
