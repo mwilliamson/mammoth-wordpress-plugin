@@ -77,6 +77,7 @@ function mammoth_render_editor_box( $post ) {
                     <h4>Visual</h4>
                     <iframe
                         id="mammoth-docx-visual-preview"
+                        title="<?php echo esc_attr( __( 'Visual preview of the converted document', 'mammoth-docx-converter' ) ); ?>"
                         src="about:blank"
                         data-stylesheets="<?php echo mammoth_editor_stylesheets_list(); ?>">
                     </iframe>
